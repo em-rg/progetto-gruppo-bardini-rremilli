@@ -2,20 +2,20 @@
 **Esercizio 2 — Gestione studenti (liste e funzioni)**
 
 ---
-##Obiettivo
+# Obiettivo
 
 Realizzare un programma a riga di comando per gestire una lista di studenti.  
 Il progetto è sviluppato in modalità **collaborativa su GitHub**, rispettando i vincoli tecnici e metodologici richiesti a lezione.
 
 ---
-##Funzioni Implementate
+# Funzioni Implementate
 - **Aggiunta studente**: inserimento di nome e cognome con validazione input.  
 - **Elenco studenti**: visualizzazione in ordine alfabetico.  
 - **Ricerca studenti**: per nome o cognome (case-insensitive, match parziale).  
 - **Gestione in memoria**: dati solo in memoria, senza file o database.  
 
 ---
-##Vincoli tecnici rispettati
+# Vincoli tecnici rispettati
 - Utilizzo esclusivo di **liste, cicli, condizioni, funzioni e/o oggetti**.  
 - **Validazione input** con messaggi di errore chiari.  
 - Strutturazione del codice in più funzioni:  
@@ -28,7 +28,7 @@ Il progetto è sviluppato in modalità **collaborativa su GitHub**, rispettando 
 - Centralizzazione delle costanti in `config.py`.  
 
 ---
-##Struttura del progetto
+# Struttura del progetto
 progetto-gruppo-bardini-rremilli/
 │
 ├── student_manager/
