@@ -1,0 +1,34 @@
+from student_manager import aggiungi_studente, elenca_studenti, cerca_studente
+
+def main():
+    """
+    Avvia il menu principale per la gestione degli studenti.
+
+    Permette di aggiungere, elencare e cercare studenti tramite input da console.
+
+    Returns
+    -------
+    None
+    """
+    studenti = []
+    while True:
+        print("\n--- MENU STUDENTI ---")
+        print("1. Aggiungi studente")
+        print("2. Elenca studenti (ordine alfabetico)")
+        print("3. Cerca studente per nome")
+        print("4. Esci")
+        scelta = input("Scegli un'opzione (1-4): ").strip()
+        if scelta == "1":
+            aggiungi_studente(studenti)
+        elif scelta == "2":
+            elenca_studenti(studenti)
+        elif scelta == "3":
+            cerca_studente(studenti)
+        elif scelta == "4":
+            print("Uscita dal programma.")
+            break
+        else:
+            print("Opzione non valida. Riprova.")
+
+if __name__ == "__main__":
+    main()
