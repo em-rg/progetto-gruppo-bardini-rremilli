@@ -12,23 +12,26 @@ def main():
     """
     studenti = []
     while True:
-        print("\n--- MENU STUDENTI ---")
-        print("1. Aggiungi studente")
-        print("2. Elenca studenti (ordine alfabetico)")
-        print("3. Cerca studente per nome")
-        print("4. Esci")
-        scelta = input("Scegli un'opzione (1-4): ").strip()
-        if scelta == "1":
-            aggiungi_studente(studenti)
-        elif scelta == "2":
-            elenca_studenti(studenti)
-        elif scelta == "3":
-            cerca_studente(studenti)
-        elif scelta == "4":
-            print("Uscita dal programma.")
-            break
-        else:
-            print("Opzione non valida. Riprova.")
+        try:
+            print("\n--- MENU STUDENTI ---")
+            print("1. Aggiungi studente")
+            print("2. Elenca studenti (ordine alfabetico)")
+            print("3. Cerca studente per nome")
+            print("4. Esci")
+            scelta = input("Scegli un'opzione (1-4): ").strip()
+            if scelta == "1":
+                aggiungi_studente(studenti)
+            elif scelta == "2":
+                elenca_studenti(studenti)
+            elif scelta == "3":
+                cerca_studente(studenti)
+            elif scelta == "4":
+                print("Uscita dal programma.")
+                break
+            else:
+                print("Opzione non valida. Riprova.")
+        except Exception as e:
+            print(f"Errore inatteso: {e}")
 
 if __name__ == "__main__":
     main()
