@@ -39,16 +39,19 @@ def aggiungi_studente(studenti):
     -------
     None
     """
-    nome = input("Inserisci il nome: ").strip()
-    if not nome.isalpha():
-        print("Errore: Il nome deve contenere solo lettere.")
-        return
-    cognome = input("Inserisci il cognome: ").strip()
-    if not cognome.isalpha():
-        print("Errore: Il cognome deve contenere solo lettere.")
-        return
-    studenti.append(Studente(nome.title(), cognome.title()))
-    print("Studente aggiunto correttamente.")
+    try:
+        nome = input("Inserisci il nome: ").strip()
+        if not nome.isalpha():
+            print("Errore: Il nome deve contenere solo lettere.")
+            return
+        cognome = input("Inserisci il cognome: ").strip()
+        if not cognome.isalpha():
+            print("Errore: Il cognome deve contenere solo lettere.")
+            return
+        studenti.append(Studente(nome.title(), cognome.title()))
+        print("Studente aggiunto correttamente.")
+    except Exception as e:
+        print(f"Errore inatteso durante l'aggiunta dello studente: {e}")
 
 
 def elenca_studenti(studenti):
@@ -64,13 +67,16 @@ def elenca_studenti(studenti):
     -------
     None
     """
-    if not studenti:
-        print("Nessuno studente presente.")
-        return
-    studenti_ordinati = sorted(studenti, key=lambda s: (s.cognome.lower(), s.nome.lower()))
-    print("Elenco studenti:")
-    for studente in studenti_ordinati:
-        print(f"- {studente}")
+    try:
+        if not studenti:
+            print("Nessuno studente presente.")
+            return
+        studenti_ordinati = sorted(studenti, key=lambda s: (s.cognome.lower(), s.nome.lower()))
+        print("Elenco studenti:")
+        for studente in studenti_ordinati:
+            print(f"- {studente}")
+    except Exception as e:
+        print(f"Errore inatteso durante l'elenco degli studenti: {e}")
 
 
 def cerca_studente(studenti):
@@ -86,14 +92,17 @@ def cerca_studente(studenti):
     -------
     None
     """
-    query = input("Inserisci il nome da cercare: ").strip().lower()
-    if not query:
-        print("Errore: Inserire almeno una lettera.")
-        return
-    trovati = [s for s in studenti if query in s.nome.lower()]
-    if trovati:
-        print("Studenti trovati:")
-        for studente in trovati:
-            print(f"- {studente}")
-    else:
-        print("Nessuno studente trovato con questo nome.")
+    try:
+        query = input("Inserisci il nome da cercare: ").strip().lower()
+        if not query:
+            print("Errore: Inserire almeno una lettera.")
+            return
+        trovati = [s for s in studenti if query in s.nome.lower()]
+        if trovati:
+            print("Studenti trovati:")
+            for studente in trovati:
+                print(f"- {studente}")
+        else:
+            print("Nessuno studente trovato con questo nome.")
+    except Exception as e:
+        print(f"Errore inatteso durante la ricerca dello studente: {e}")
