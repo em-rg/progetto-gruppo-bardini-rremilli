@@ -1,4 +1,4 @@
-from student_manager import aggiungi_studente, elenca_studenti, cerca_studente
+from student_manager import aggiungi_studente, elenca_studenti, cerca_studente, cerca_classe
 
 def main():
     """
@@ -17,8 +17,9 @@ def main():
             print("1. Aggiungi studente")
             print("2. Elenca studenti (ordine alfabetico)")
             print("3. Cerca studente per nome")
-            print("4. Esci")
-            scelta = input("Scegli un'opzione (1-4): ").strip()
+            print("4. Cerca studenti per classe")
+            print("5. Esci")
+            scelta = input("Scegli un'opzione (1-5): ").strip()
             if scelta == "1":
                 aggiungi_studente(studenti)
             elif scelta == "2":
@@ -26,6 +27,8 @@ def main():
             elif scelta == "3":
                 cerca_studente(studenti)
             elif scelta == "4":
+                cerca_classe(studenti)
+            elif scelta == "5":
                 print("Uscita dal programma.")
                 break
             else:
