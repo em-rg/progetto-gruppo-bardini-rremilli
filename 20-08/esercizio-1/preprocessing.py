@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+import numpy as np
 
 def load_and_clean_data(file_path):
     df = pd.read_csv(file_path, encoding='latin1')
@@ -69,10 +70,21 @@ def scale_features(features, method='standard'):
     else:
         raise ValueError("method must be 'standard' or 'minmax'")
 
+def remove_outliers(features, X_scaled_df, outlier_fraction=0.05):
+    # Calcola la distanza euclidea dal centroide
+    centroid = X_scaled_df.mean(axis=0)
+    distances = np.linalg.norm(X_scaled_df - centroid, axis=1)
+    threshold = np.percentile(distances, 100 * (1 - outlier_fraction))
+    mask = distances <= threshold
+    # Filtra sia features che X_scaled_df
+    return features[mask].reset_index(drop=True), X_scaled_df[mask].reset_index(drop=True)
+
 def get_preprocessed_data(file_path="Online_Retail.csv", scaling_method='standard'):
     df_clean = load_and_clean_data(file_path)
     customer_features = compute_rfm_features(df_clean)
     X_scaled_df = scale_features(customer_features, method=scaling_method)
+    # Rimuovi il 5% dei dati più outlier
+    customer_features, X_scaled_df = remove_outliers(customer_features, X_scaled_df, outlier_fraction=0.05)
     return customer_features, X_scaled_df
 
 
