@@ -1,0 +1,547 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting Started &mdash; CrewAI Multi-Process Router System 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbb40358" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbb40358" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="System Architecture" href="architecture.html" />
+    <link rel="prev" title="CrewAI Multi-Process Router System Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            CrewAI Multi-Process Router System
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">📋 <strong>Prerequisites</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">🛠️ <strong>Installation</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-system">🚀 <strong>Running the System</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#first-steps">📝 <strong>First Steps</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">🔧 <strong>Configuration</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-workflows">🎯 <strong>Example Workflows</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">🐛 <strong>Troubleshooting</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">📚 <strong>Next Steps</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tips">💡 <strong>Tips</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">System Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#high-level-architecture">🏗️ <strong>High-Level Architecture</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#core-components">🧩 <strong>Core Components</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#data-flow">🔄 <strong>Data Flow</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#design-patterns">🏛️ <strong>Design Patterns</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#configuration-architecture">🔧 <strong>Configuration Architecture</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#state-management">📊 <strong>State Management</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#security-architecture">🛡️ <strong>Security Architecture</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#performance-considerations">⚡ <strong>Performance Considerations</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#monitoring-observability">🔍 <strong>Monitoring &amp; Observability</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modules-overview">📚 <strong>Modules Overview</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.main">🎯 <strong>Main Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState"><code class="docutils literal notranslate"><span class="pre">MultiProcessState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.user_input"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.routing_info"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.result"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.sentence_count"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id0"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id1"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id2"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id3"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.model_config"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow.get_user_input"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.get_user_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow.route_input"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.route_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow.process_request"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.process_request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow.save_result"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.save_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.kickoff"><code class="docutils literal notranslate"><span class="pre">kickoff()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.plot"><code class="docutils literal notranslate"><span class="pre">plot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.demo_routing"><code class="docutils literal notranslate"><span class="pre">demo_routing()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id4"><code class="docutils literal notranslate"><span class="pre">MultiProcessState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id5"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id6"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id7"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id8"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id9"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id10"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id11"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id12"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id13"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id14"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id15"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.get_user_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id16"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.route_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id17"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.process_request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id18"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.save_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id19"><code class="docutils literal notranslate"><span class="pre">kickoff()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id20"><code class="docutils literal notranslate"><span class="pre">plot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id21"><code class="docutils literal notranslate"><span class="pre">demo_routing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.routers.main_router">🧭 <strong>Router Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter"><code class="docutils literal notranslate"><span class="pre">MainRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter.input_classifier_agent"><code class="docutils literal notranslate"><span class="pre">MainRouter.input_classifier_agent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter.__init__"><code class="docutils literal notranslate"><span class="pre">MainRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter.classify_input_task"><code class="docutils literal notranslate"><span class="pre">MainRouter.classify_input_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter.crew"><code class="docutils literal notranslate"><span class="pre">MainRouter.crew()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter"><code class="docutils literal notranslate"><span class="pre">MathRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter.number_patterns"><code class="docutils literal notranslate"><span class="pre">MathRouter.number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter.text_number_patterns"><code class="docutils literal notranslate"><span class="pre">MathRouter.text_number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter.__init__"><code class="docutils literal notranslate"><span class="pre">MathRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter.classify_math_input"><code class="docutils literal notranslate"><span class="pre">MathRouter.classify_math_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.route_user_input"><code class="docutils literal notranslate"><span class="pre">route_user_input()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id22"><code class="docutils literal notranslate"><span class="pre">MainRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id23"><code class="docutils literal notranslate"><span class="pre">MainRouter.input_classifier_agent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id24"><code class="docutils literal notranslate"><span class="pre">MainRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id25"><code class="docutils literal notranslate"><span class="pre">MainRouter.classify_input_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id26"><code class="docutils literal notranslate"><span class="pre">MainRouter.crew()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id27"><code class="docutils literal notranslate"><span class="pre">MathRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id28"><code class="docutils literal notranslate"><span class="pre">MathRouter.number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id29"><code class="docutils literal notranslate"><span class="pre">MathRouter.text_number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id30"><code class="docutils literal notranslate"><span class="pre">MathRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id31"><code class="docutils literal notranslate"><span class="pre">MathRouter.classify_math_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id32"><code class="docutils literal notranslate"><span class="pre">route_user_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.crews.rag_crew.rag_crew">🔍 <strong>RAG Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.crews.rag_crew.rag_crew.RagCrew"><code class="docutils literal notranslate"><span class="pre">RagCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.crews.math_crew.math_crew">🧮 <strong>Math Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.crews.math_crew.math_crew.MathCrew"><code class="docutils literal notranslate"><span class="pre">MathCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.crews.math_text_crew.math_text_crew">📝 <strong>Math Text Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.crews.math_text_crew.math_text_crew.MathTextCrew"><code class="docutils literal notranslate"><span class="pre">MathTextCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.crews.poem_crew.poem_crew">🎨 <strong>Poem Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.crews.poem_crew.poem_crew.PoemCrew"><code class="docutils literal notranslate"><span class="pre">PoemCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.tools.custom_tool">🛠️ <strong>Tools Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorToolInput"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorToolInput.expression"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id33"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorToolInput.model_config"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.name"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.description"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.args_schema"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.model_config"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberToolInput"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberToolInput.text"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id36"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberToolInput.model_config"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.name"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.description"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.args_schema"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.model_config"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomToolInput"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomToolInput.argument"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id37"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomToolInput.model_config"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool"><code class="docutils literal notranslate"><span class="pre">MyCustomTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.name"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.description"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.args_schema"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.model_config"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id38"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id41"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id42"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id43"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id44"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.env_vars"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.env_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.description_updated"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.description_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.cache_function"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.cache_function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.result_as_answer"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.result_as_answer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.max_usage_count"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.max_usage_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.current_usage_count"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.current_usage_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id45"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id46"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id47"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id48"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id49"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.env_vars"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.env_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.description_updated"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.description_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.cache_function"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.cache_function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.result_as_answer"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.result_as_answer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.max_usage_count"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.max_usage_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.current_usage_count"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.current_usage_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id50"><code class="docutils literal notranslate"><span class="pre">MyCustomTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id51"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id52"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id53"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id54"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.env_vars"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.env_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.description_updated"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.description_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.cache_function"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.cache_function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.result_as_answer"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.result_as_answer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.max_usage_count"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.max_usage_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.current_usage_count"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.current_usage_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id55"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id56"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id57"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id58"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id59"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id60"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id61"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id62"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id63"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id64"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id65"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id66"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#type-definitions">📋 <strong>Type Definitions</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#configuration-schemas">🔧 <strong>Configuration Schemas</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#usage-examples">🚀 <strong>Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#error-handling">⚠️ <strong>Error Handling</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#security-considerations">🔒 <strong>Security Considerations</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#performance-notes">📈 <strong>Performance Notes</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#basic-usage-examples">🎯 <strong>Basic Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#tool-usage-examples">🛠️ <strong>Tool Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#advanced-usage-examples">🎭 <strong>Advanced Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#integration-examples">🔧 <strong>Integration Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#performance-examples">📊 <strong>Performance Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#creative-examples">🎨 <strong>Creative Examples</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-1-creating-a-custom-crew">🎯 <strong>Tutorial 1: Creating a Custom Crew</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-2-building-custom-tools">🛠️ <strong>Tutorial 2: Building Custom Tools</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-3-advanced-flow-customization">🔧 <strong>Tutorial 3: Advanced Flow Customization</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-4-creating-interactive-applications">🎨 <strong>Tutorial 4: Creating Interactive Applications</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#development-setup">🛠️ <strong>Development Setup</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#project-structure">📁 <strong>Project Structure</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#testing">🧪 <strong>Testing</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#documentation">📚 <strong>Documentation</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#extending-the-system">🔧 <strong>Extending the System</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#code-style-guidelines">🎨 <strong>Code Style Guidelines</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#performance-guidelines">🚀 <strong>Performance Guidelines</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#security-best-practices">🔒 <strong>Security Best Practices</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#release-process">📋 <strong>Release Process</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributing">🤝 <strong>Contributing</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#support-and-community">📞 <strong>Support and Community</strong></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CrewAI Multi-Process Router System</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Getting Started</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/getting_started.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h1>
+<p>This guide will help you get up and running with the CrewAI Multi-Process Router System.</p>
+<section id="prerequisites">
+<h2>📋 <strong>Prerequisites</strong><a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Before you begin, ensure you have:</p>
+<ul class="simple">
+<li><p>Python 3.10 or higher</p></li>
+<li><p>Git (for cloning the repository)</p></li>
+<li><p>Basic familiarity with CrewAI concepts</p></li>
+</ul>
+</section>
+<section id="installation">
+<h2>🛠️ <strong>Installation</strong><a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><strong>Clone the repository</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>&lt;repository-url&gt;
+<span class="nb">cd</span><span class="w"> </span>esercizio1
+</pre></div>
+</div>
+</li>
+<li><p><strong>Install dependencies</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+</li>
+<li><p><strong>Set up environment (optional)</strong></p>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file for API keys:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span>your_openai_api_key_here
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="running-the-system">
+<h2>🚀 <strong>Running the System</strong><a class="headerlink" href="#running-the-system" title="Link to this heading"></a></h2>
+<p><strong>Main Application</strong></p>
+<p>Run the interactive flow:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kickoff
+</pre></div>
+</div>
+<p>This will:</p>
+<ol class="arabic simple">
+<li><p>Prompt you for input</p></li>
+<li><p>Automatically classify and route your request</p></li>
+<li><p>Process it with the appropriate specialized crew</p></li>
+<li><p>Save results to a file</p></li>
+</ol>
+<p><strong>Demo Mode</strong></p>
+<p>Test the routing system with predefined examples:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>demo_routing
+</pre></div>
+</div>
+<p><strong>Flow Visualization</strong></p>
+<p>Generate a visual diagram of the system flow:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>plot
+</pre></div>
+</div>
+<p><strong>System Testing</strong></p>
+<p>Run comprehensive tests:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>test_system.py
+</pre></div>
+</div>
+</section>
+<section id="first-steps">
+<h2>📝 <strong>First Steps</strong><a class="headerlink" href="#first-steps" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><strong>Try Different Input Types</strong></p>
+<p>Test various inputs to see how the system routes them:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;What is artificial intelligence?&quot;          → RAG Crew
+&quot;Calculate 15 + 27 * 3&quot;                   → Math Crew (Numeric)
+&quot;What is two plus three times five?&quot;       → Math Text Crew (Textual)
+&quot;Write a poem about the ocean&quot;             → Poem Crew
+</pre></div>
+</div>
+</li>
+<li><p><strong>Understand the Flow</strong></p>
+<p>The system follows this process:</p>
+</li>
+<li><p><strong>Explore the Results</strong></p>
+<p>Results are saved to files like:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rag_crew_result.txt</span></code> - Information retrieval results</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">math_crew_result.txt</span></code> - Numerical math results</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">math_text_crew_result.txt</span></code> - Textual math results</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">poem_crew_result.txt</span></code> - Creative writing results</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="configuration">
+<h2>🔧 <strong>Configuration</strong><a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<p><strong>Agent Configuration</strong></p>
+<p>Each crew uses YAML files for configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: crews/rag_crew/config/agents.yaml</span>
+<span class="nt">knowledge_researcher</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Knowledge Research Specialist</span>
+<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Research comprehensive information about {query}</span>
+<span class="w">  </span><span class="nt">backstory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">You are an expert researcher...</span>
+</pre></div>
+</div>
+<p><strong>Task Configuration</strong></p>
+<p>Tasks are also defined in YAML:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: crews/rag_crew/config/tasks.yaml</span>
+<span class="nt">research_information</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Research comprehensive information about {query}</span>
+<span class="w">  </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A comprehensive research report</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge_researcher</span>
+</pre></div>
+</div>
+</section>
+<section id="example-workflows">
+<h2>🎯 <strong>Example Workflows</strong><a class="headerlink" href="#example-workflows" title="Link to this heading"></a></h2>
+<p><strong>Information Retrieval Workflow</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiProcessFlow</span>
+
+<span class="c1"># Create and run flow</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">MultiProcessFlow</span><span class="p">()</span>
+<span class="c1"># Input: &quot;Explain quantum computing&quot;</span>
+<span class="c1"># → Routes to RAG Crew</span>
+<span class="c1"># → Knowledge Researcher gathers information</span>
+<span class="c1"># → Information Synthesizer creates structured answer</span>
+</pre></div>
+</div>
+<p><strong>Mathematical Calculation Workflow</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Input: &quot;Calculate 25 * 4 + 10&quot;</span>
+<span class="c1"># → Routes to Math Crew (Numeric)</span>
+<span class="c1"># → Math Parser analyzes expression</span>
+<span class="c1"># → Math Calculator computes result</span>
+<span class="c1"># → Result Formatter presents answer</span>
+</pre></div>
+</div>
+<p><strong>Textual Math Workflow</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Input: &quot;What is twenty-five times four plus ten?&quot;</span>
+<span class="c1"># → Routes to Math Text Crew (Textual)</span>
+<span class="c1"># → Text Number Parser converts words to numbers</span>
+<span class="c1"># → Text Math Calculator performs calculation</span>
+<span class="c1"># → Text Result Formatter shows conversion and result</span>
+</pre></div>
+</div>
+</section>
+<section id="troubleshooting">
+<h2>🐛 <strong>Troubleshooting</strong><a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<p><strong>Common Issues</strong></p>
+<ol class="arabic">
+<li><p><strong>Import Errors</strong></p>
+<p>Ensure you’re in the project root and have installed with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code></p>
+</li>
+<li><p><strong>API Key Issues</strong></p>
+<p>The system works without API keys using pattern-based fallbacks</p>
+</li>
+<li><p><strong>Missing Dependencies</strong></p>
+<p>Install required packages: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">crewai</span> <span class="pre">pydantic</span></code></p>
+</li>
+</ol>
+<p><strong>Error Messages</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;AI</span> <span class="pre">classification</span> <span class="pre">failed&quot;</span></code> - Falls back to pattern-based routing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;Invalid</span> <span class="pre">mathematical</span> <span class="pre">expression&quot;</span></code> - Check expression syntax</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;Error</span> <span class="pre">converting</span> <span class="pre">text</span> <span class="pre">numbers&quot;</span></code> - Verify supported number words</p></li>
+</ul>
+</section>
+<section id="next-steps">
+<h2>📚 <strong>Next Steps</strong><a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Read the <a class="reference internal" href="architecture.html"><span class="doc">System Architecture</span></a> guide to understand system design</p></li>
+<li><p>Explore the <a class="reference internal" href="api_reference.html"><span class="doc">API Reference</span></a> for detailed documentation</p></li>
+<li><p>Check out <a class="reference internal" href="examples.html"><span class="doc">Examples</span></a> for more usage patterns</p></li>
+<li><p>See <a class="reference internal" href="tutorials.html"><span class="doc">Tutorials</span></a> for advanced configuration</p></li>
+</ul>
+</section>
+<section id="tips">
+<h2>💡 <strong>Tips</strong><a class="headerlink" href="#tips" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Use clear, specific language in your inputs</p></li>
+<li><p>The system supports both English and Italian number words</p></li>
+<li><p>Mathematical expressions support +, -, <a href="#id1"><span class="problematic" id="id2">*</span></a>, /, ^ operations</p></li>
+<li><p>Creative writing prompts work best with specific themes or styles</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="CrewAI Multi-Process Router System Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="architecture.html" class="btn btn-neutral float-right" title="System Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Bardini-Rremilli Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

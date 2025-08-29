@@ -1,0 +1,19 @@
+research_information:
+  description: >
+    Research comprehensive information about the query: {query}
+    
+    Gather relevant facts, explanations, examples, and context that would help answer the user's question.
+    Focus on accuracy, completeness, and relevance to the specific query.
+  expected_output: >
+    A comprehensive research report containing relevant information, facts, and context about {query}
+  agent: knowledge_researcher
+
+synthesize_answer:
+  description: >
+    Based on the research findings, create a clear and comprehensive answer to the user's query: {query}
+    
+    Structure the information logically, provide clear explanations, include relevant examples,
+    and ensure the response directly addresses what the user is asking.
+  expected_output: >
+    A well-structured, clear and comprehensive answer that directly addresses the user's query about {query}
+  agent: information_synthesizer

@@ -1,0 +1,14 @@
+User Input: 2+2
+Crew Type: math_crew
+Routing Info: {'user_input': '2+2', 'main_category': 'MATH', 'crew_type': 'math_crew', 'sub_category': 'NUMERIC'}
+Result:
+Original Expression:
+2 + 2
+
+Calculation Process:
+1. Identify the terms: 2 and 2  
+2. Perform the addition: 2 + 2  
+3. Compute the sum: 4
+
+Final Result:
+4

@@ -1,0 +1,1158 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorials &mdash; CrewAI Multi-Process Router System 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbb40358" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbb40358" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Development Guide" href="development.html" />
+    <link rel="prev" title="Examples" href="examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            CrewAI Multi-Process Router System
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#prerequisites">📋 <strong>Prerequisites</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#installation">🛠️ <strong>Installation</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-the-system">🚀 <strong>Running the System</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#first-steps">📝 <strong>First Steps</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#configuration">🔧 <strong>Configuration</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#example-workflows">🎯 <strong>Example Workflows</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#troubleshooting">🐛 <strong>Troubleshooting</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#next-steps">📚 <strong>Next Steps</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#tips">💡 <strong>Tips</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">System Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#high-level-architecture">🏗️ <strong>High-Level Architecture</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#core-components">🧩 <strong>Core Components</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#data-flow">🔄 <strong>Data Flow</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#design-patterns">🏛️ <strong>Design Patterns</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#configuration-architecture">🔧 <strong>Configuration Architecture</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#state-management">📊 <strong>State Management</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#security-architecture">🛡️ <strong>Security Architecture</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#performance-considerations">⚡ <strong>Performance Considerations</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#monitoring-observability">🔍 <strong>Monitoring &amp; Observability</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modules-overview">📚 <strong>Modules Overview</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.main">🎯 <strong>Main Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState"><code class="docutils literal notranslate"><span class="pre">MultiProcessState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.user_input"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.routing_info"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.result"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.sentence_count"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id0"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id1"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id2"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id3"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.model_config"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow.get_user_input"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.get_user_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow.route_input"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.route_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow.process_request"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.process_request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow.save_result"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.save_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.kickoff"><code class="docutils literal notranslate"><span class="pre">kickoff()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.plot"><code class="docutils literal notranslate"><span class="pre">plot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.demo_routing"><code class="docutils literal notranslate"><span class="pre">demo_routing()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id4"><code class="docutils literal notranslate"><span class="pre">MultiProcessState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id5"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id6"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id7"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id8"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id9"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id10"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id11"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id12"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id13"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id14"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id15"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.get_user_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id16"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.route_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id17"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.process_request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id18"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.save_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id19"><code class="docutils literal notranslate"><span class="pre">kickoff()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id20"><code class="docutils literal notranslate"><span class="pre">plot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id21"><code class="docutils literal notranslate"><span class="pre">demo_routing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.routers.main_router">🧭 <strong>Router Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter"><code class="docutils literal notranslate"><span class="pre">MainRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter.input_classifier_agent"><code class="docutils literal notranslate"><span class="pre">MainRouter.input_classifier_agent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter.__init__"><code class="docutils literal notranslate"><span class="pre">MainRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter.classify_input_task"><code class="docutils literal notranslate"><span class="pre">MainRouter.classify_input_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter.crew"><code class="docutils literal notranslate"><span class="pre">MainRouter.crew()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter"><code class="docutils literal notranslate"><span class="pre">MathRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter.number_patterns"><code class="docutils literal notranslate"><span class="pre">MathRouter.number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter.text_number_patterns"><code class="docutils literal notranslate"><span class="pre">MathRouter.text_number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter.__init__"><code class="docutils literal notranslate"><span class="pre">MathRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter.classify_math_input"><code class="docutils literal notranslate"><span class="pre">MathRouter.classify_math_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.route_user_input"><code class="docutils literal notranslate"><span class="pre">route_user_input()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id22"><code class="docutils literal notranslate"><span class="pre">MainRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id23"><code class="docutils literal notranslate"><span class="pre">MainRouter.input_classifier_agent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id24"><code class="docutils literal notranslate"><span class="pre">MainRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id25"><code class="docutils literal notranslate"><span class="pre">MainRouter.classify_input_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id26"><code class="docutils literal notranslate"><span class="pre">MainRouter.crew()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id27"><code class="docutils literal notranslate"><span class="pre">MathRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id28"><code class="docutils literal notranslate"><span class="pre">MathRouter.number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id29"><code class="docutils literal notranslate"><span class="pre">MathRouter.text_number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id30"><code class="docutils literal notranslate"><span class="pre">MathRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id31"><code class="docutils literal notranslate"><span class="pre">MathRouter.classify_math_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id32"><code class="docutils literal notranslate"><span class="pre">route_user_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.crews.rag_crew.rag_crew">🔍 <strong>RAG Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.crews.rag_crew.rag_crew.RagCrew"><code class="docutils literal notranslate"><span class="pre">RagCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.crews.math_crew.math_crew">🧮 <strong>Math Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.crews.math_crew.math_crew.MathCrew"><code class="docutils literal notranslate"><span class="pre">MathCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.crews.math_text_crew.math_text_crew">📝 <strong>Math Text Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.crews.math_text_crew.math_text_crew.MathTextCrew"><code class="docutils literal notranslate"><span class="pre">MathTextCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.crews.poem_crew.poem_crew">🎨 <strong>Poem Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.crews.poem_crew.poem_crew.PoemCrew"><code class="docutils literal notranslate"><span class="pre">PoemCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.tools.custom_tool">🛠️ <strong>Tools Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorToolInput"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorToolInput.expression"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id33"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorToolInput.model_config"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.name"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.description"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.args_schema"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.model_config"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberToolInput"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberToolInput.text"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id36"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberToolInput.model_config"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.name"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.description"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.args_schema"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.model_config"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomToolInput"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomToolInput.argument"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id37"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomToolInput.model_config"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool"><code class="docutils literal notranslate"><span class="pre">MyCustomTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.name"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.description"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.args_schema"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.model_config"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id38"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id41"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id42"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id43"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id44"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.env_vars"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.env_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.description_updated"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.description_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.cache_function"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.cache_function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.result_as_answer"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.result_as_answer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.max_usage_count"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.max_usage_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.current_usage_count"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.current_usage_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id45"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id46"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id47"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id48"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id49"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.env_vars"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.env_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.description_updated"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.description_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.cache_function"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.cache_function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.result_as_answer"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.result_as_answer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.max_usage_count"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.max_usage_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.current_usage_count"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.current_usage_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id50"><code class="docutils literal notranslate"><span class="pre">MyCustomTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id51"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id52"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id53"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id54"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.env_vars"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.env_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.description_updated"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.description_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.cache_function"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.cache_function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.result_as_answer"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.result_as_answer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.max_usage_count"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.max_usage_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.current_usage_count"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.current_usage_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id55"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id56"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id57"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id58"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id59"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id60"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id61"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id62"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id63"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id64"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id65"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id66"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#type-definitions">📋 <strong>Type Definitions</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#configuration-schemas">🔧 <strong>Configuration Schemas</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#usage-examples">🚀 <strong>Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#error-handling">⚠️ <strong>Error Handling</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#security-considerations">🔒 <strong>Security Considerations</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#performance-notes">📈 <strong>Performance Notes</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#basic-usage-examples">🎯 <strong>Basic Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#tool-usage-examples">🛠️ <strong>Tool Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#advanced-usage-examples">🎭 <strong>Advanced Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#integration-examples">🔧 <strong>Integration Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#performance-examples">📊 <strong>Performance Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#creative-examples">🎨 <strong>Creative Examples</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tutorial-1-creating-a-custom-crew">🎯 <strong>Tutorial 1: Creating a Custom Crew</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tutorial-2-building-custom-tools">🛠️ <strong>Tutorial 2: Building Custom Tools</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tutorial-3-advanced-flow-customization">🔧 <strong>Tutorial 3: Advanced Flow Customization</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tutorial-4-creating-interactive-applications">🎨 <strong>Tutorial 4: Creating Interactive Applications</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#development-setup">🛠️ <strong>Development Setup</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#project-structure">📁 <strong>Project Structure</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#testing">🧪 <strong>Testing</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#documentation">📚 <strong>Documentation</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#extending-the-system">🔧 <strong>Extending the System</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#code-style-guidelines">🎨 <strong>Code Style Guidelines</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#performance-guidelines">🚀 <strong>Performance Guidelines</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#security-best-practices">🔒 <strong>Security Best Practices</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#release-process">📋 <strong>Release Process</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributing">🤝 <strong>Contributing</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#support-and-community">📞 <strong>Support and Community</strong></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CrewAI Multi-Process Router System</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tutorials</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tutorials.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorials">
+<h1>Tutorials<a class="headerlink" href="#tutorials" title="Link to this heading"></a></h1>
+<p>This section provides step-by-step tutorials for common tasks and advanced usage patterns with the CrewAI Multi-Process Router System.</p>
+<section id="tutorial-1-creating-a-custom-crew">
+<h2>🎯 <strong>Tutorial 1: Creating a Custom Crew</strong><a class="headerlink" href="#tutorial-1-creating-a-custom-crew" title="Link to this heading"></a></h2>
+<p>Learn how to create your own specialized crew for handling specific types of requests.</p>
+<p><strong>Step 1: Define Your Crew Structure</strong></p>
+<p>First, create the directory structure for your new crew:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>src/esercizio1/crews/weather_crew/config
+touch<span class="w"> </span>src/esercizio1/crews/weather_crew/__init__.py
+touch<span class="w"> </span>src/esercizio1/crews/weather_crew/weather_crew.py
+</pre></div>
+</div>
+<p><strong>Step 2: Create Agent Configuration</strong></p>
+<p>Create <code class="docutils literal notranslate"><span class="pre">src/esercizio1/crews/weather_crew/config/agents.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">weather_analyst</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Weather Data Analyst</span>
+<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Analyze and interpret weather data for {location} to provide accurate forecasts</span>
+<span class="w">  </span><span class="nt">backstory</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">You are an experienced meteorologist with expertise in weather pattern analysis.</span>
+<span class="w">    </span><span class="no">You can interpret atmospheric data and provide detailed weather insights.</span>
+
+<span class="nt">forecast_presenter</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Weather Forecast Presenter</span>
+<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Present weather information in a clear, user-friendly format for {location}</span>
+<span class="w">  </span><span class="nt">backstory</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">You specialize in communicating weather information to the general public.</span>
+<span class="w">    </span><span class="no">You make complex meteorological data easy to understand.</span>
+</pre></div>
+</div>
+<p><strong>Step 3: Create Task Configuration</strong></p>
+<p>Create <code class="docutils literal notranslate"><span class="pre">src/esercizio1/crews/weather_crew/config/tasks.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">analyze_weather</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Analyze current weather conditions and patterns for {location}.</span>
+<span class="w">    </span><span class="no">Consider temperature, humidity, pressure, wind patterns, and seasonal factors.</span>
+<span class="w">  </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">A detailed weather analysis including current conditions and trend predictions</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">weather_analyst</span>
+
+<span class="nt">present_forecast</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Create a user-friendly weather forecast based on the analysis for {location}.</span>
+<span class="w">    </span><span class="no">Include current conditions, short-term forecast, and any weather advisories.</span>
+<span class="w">  </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">A clear, easy-to-understand weather forecast and recommendations</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">forecast_presenter</span>
+</pre></div>
+</div>
+<p><strong>Step 4: Implement the Crew Class</strong></p>
+<p>Create <code class="docutils literal notranslate"><span class="pre">src/esercizio1/crews/weather_crew/weather_crew.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">crewai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">Crew</span><span class="p">,</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Task</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crewai.project</span><span class="w"> </span><span class="kn">import</span> <span class="n">CrewBase</span><span class="p">,</span> <span class="n">agent</span><span class="p">,</span> <span class="n">crew</span><span class="p">,</span> <span class="n">task</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crewai.agents.agent_builder.base_agent</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseAgent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="nd">@CrewBase</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">WeatherCrew</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Weather Crew for weather-related queries and forecasts.&quot;&quot;&quot;</span>
+
+    <span class="n">agents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">BaseAgent</span><span class="p">]</span>
+    <span class="n">tasks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Task</span><span class="p">]</span>
+
+    <span class="n">agents_config</span> <span class="o">=</span> <span class="s2">&quot;config/agents.yaml&quot;</span>
+    <span class="n">tasks_config</span> <span class="o">=</span> <span class="s2">&quot;config/tasks.yaml&quot;</span>
+
+    <span class="nd">@agent</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">weather_analyst</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Agent</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create weather analyst agent.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Agent</span><span class="p">(</span>
+            <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">agents_config</span><span class="p">[</span><span class="s2">&quot;weather_analyst&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+    <span class="nd">@agent</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forecast_presenter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Agent</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create forecast presenter agent.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Agent</span><span class="p">(</span>
+            <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">agents_config</span><span class="p">[</span><span class="s2">&quot;forecast_presenter&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+    <span class="nd">@task</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_weather</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Task</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create weather analysis task.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Task</span><span class="p">(</span>
+            <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tasks_config</span><span class="p">[</span><span class="s2">&quot;analyze_weather&quot;</span><span class="p">],</span>
+            <span class="n">agent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">weather_analyst</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="nd">@task</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">present_forecast</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Task</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create forecast presentation task.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Task</span><span class="p">(</span>
+            <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tasks_config</span><span class="p">[</span><span class="s2">&quot;present_forecast&quot;</span><span class="p">],</span>
+            <span class="n">agent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">forecast_presenter</span><span class="p">(),</span>
+            <span class="n">context</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">analyze_weather</span><span class="p">()]</span>
+        <span class="p">)</span>
+
+    <span class="nd">@crew</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">crew</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Crew</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates the Weather Crew.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Crew</span><span class="p">(</span>
+            <span class="n">agents</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">agents</span><span class="p">,</span>
+            <span class="n">tasks</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="p">,</span>
+            <span class="n">process</span><span class="o">=</span><span class="n">Process</span><span class="o">.</span><span class="n">sequential</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Step 5: Update the Router</strong></p>
+<p>Add weather detection to <code class="docutils literal notranslate"><span class="pre">src/esercizio1/routers/main_router.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add weather patterns to route_user_input function</span>
+<span class="n">weather_patterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sa">r</span><span class="s1">&#39;\b(weather|forecast|temperature|rain|snow|wind|climate)\b&#39;</span><span class="p">,</span>
+    <span class="sa">r</span><span class="s1">&#39;\b(sunny|cloudy|stormy|humid|cold|hot|warm)\b&#39;</span><span class="p">,</span>
+    <span class="sa">r</span><span class="s1">&#39;\b(today|tomorrow|this week|weekend)\b.*\b(weather|forecast)\b&#39;</span>
+<span class="p">]</span>
+
+<span class="n">is_weather</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">user_input_lower</span><span class="p">)</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">weather_patterns</span><span class="p">)</span>
+
+<span class="c1"># Add to classification logic</span>
+<span class="k">if</span> <span class="n">is_weather</span><span class="p">:</span>
+    <span class="n">main_category</span> <span class="o">=</span> <span class="s2">&quot;WEATHER&quot;</span>
+    <span class="n">routing_info</span><span class="p">[</span><span class="s2">&quot;crew_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;weather_crew&quot;</span>
+</pre></div>
+</div>
+<p><strong>Step 6: Test Your Custom Crew</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.crews.weather_crew.weather_crew</span><span class="w"> </span><span class="kn">import</span> <span class="n">WeatherCrew</span>
+
+<span class="c1"># Test the weather crew</span>
+<span class="n">weather_crew</span> <span class="o">=</span> <span class="n">WeatherCrew</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">weather_crew</span><span class="o">.</span><span class="n">crew</span><span class="p">()</span><span class="o">.</span><span class="n">kickoff</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="s2">&quot;New York&quot;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="tutorial-2-building-custom-tools">
+<h2>🛠️ <strong>Tutorial 2: Building Custom Tools</strong><a class="headerlink" href="#tutorial-2-building-custom-tools" title="Link to this heading"></a></h2>
+<p>Learn how to create specialized tools for your crews.</p>
+<p><strong>Step 1: Define Tool Requirements</strong></p>
+<p>Let’s create a web search tool for the RAG crew:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Type</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crewai.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseTool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">WebSearchToolInput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Input schema for WebSearchTool.&quot;&quot;&quot;</span>
+    <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Search query to look up on the web&quot;</span><span class="p">)</span>
+    <span class="n">max_results</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Maximum number of results to return&quot;</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">WebSearchTool</span><span class="p">(</span><span class="n">BaseTool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Web search tool for gathering information from the internet.</span>
+
+<span class="sd">    This tool performs web searches and extracts relevant content</span>
+<span class="sd">    from search results to provide up-to-date information.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Web Search&quot;</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;Searches the web for information on a given query and returns &quot;</span>
+        <span class="s2">&quot;relevant content from the top search results.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">args_schema</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span> <span class="o">=</span> <span class="n">WebSearchToolInput</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Execute web search and return results.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            query (str): Search query</span>
+<span class="sd">            max_results (int): Maximum number of results to return</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Formatted search results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Simulate web search (replace with actual search API)</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perform_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">max_results</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;No results found for query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span>
+
+            <span class="c1"># Format results</span>
+            <span class="n">formatted_results</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Search results for &#39;</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&#39;:</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">formatted_results</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="n">formatted_results</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;snippet&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="n">formatted_results</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;   URL: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+
+            <span class="k">return</span> <span class="n">formatted_results</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error performing web search: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_perform_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform the actual web search.</span>
+
+<span class="sd">        Note: This is a mock implementation. In production,</span>
+<span class="sd">        you would integrate with a real search API like Google Custom Search.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Mock search results</span>
+        <span class="n">mock_results</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Information about </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snippet&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Comprehensive information about </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2"> including definitions, examples, and use cases.&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;https://example.com/search?q=</span><span class="si">{</span><span class="n">query</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2"> - Wikipedia&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snippet&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Wikipedia article providing detailed information about </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;https://wikipedia.org/wiki/</span><span class="si">{</span><span class="n">query</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Latest news about </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;snippet&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Recent developments and news articles related to </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;https://news.example.com/search?q=</span><span class="si">{</span><span class="n">query</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;+&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">mock_results</span><span class="p">[:</span><span class="n">max_results</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Step 2: Integrate Tool with Crew</strong></p>
+<p>Update your RAG crew to use the new tool:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.tools.custom_tool</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebSearchTool</span>
+
+<span class="nd">@CrewBase</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EnhancedRagCrew</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enhanced RAG Crew with web search capabilities.&quot;&quot;&quot;</span>
+
+    <span class="nd">@agent</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">knowledge_researcher</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Agent</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Agent</span><span class="p">(</span>
+            <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">agents_config</span><span class="p">[</span><span class="s2">&quot;knowledge_researcher&quot;</span><span class="p">],</span>
+            <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">WebSearchTool</span><span class="p">()]</span>  <span class="c1"># Add the web search tool</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Step 3: Update Task to Use Tool</strong></p>
+<p>Update the task configuration to utilize the tool:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">research_information</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Research comprehensive information about the query: {query}</span>
+
+<span class="w">    </span><span class="no">Use the Web Search tool to gather current information from the internet.</span>
+<span class="w">    </span><span class="no">Then analyze and synthesize the information to provide accurate insights.</span>
+<span class="w">  </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">A comprehensive research report with current information about {query}</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">knowledge_researcher</span>
+</pre></div>
+</div>
+</section>
+<section id="tutorial-3-advanced-flow-customization">
+<h2>🔧 <strong>Tutorial 3: Advanced Flow Customization</strong><a class="headerlink" href="#tutorial-3-advanced-flow-customization" title="Link to this heading"></a></h2>
+<p>Learn how to create complex flows with conditional logic and parallel processing.</p>
+<p><strong>Step 1: Create a Multi-Stage Flow</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiProcessState</span><span class="p">,</span> <span class="n">MultiProcessFlow</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crewai.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flow</span><span class="p">,</span> <span class="n">listen</span><span class="p">,</span> <span class="n">start</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AdvancedProcessState</span><span class="p">(</span><span class="n">MultiProcessState</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extended state for advanced processing.&quot;&quot;&quot;</span>
+    <span class="n">preprocessing_results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">parallel_results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">final_synthesis</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">confidence_score</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AdvancedMultiProcessFlow</span><span class="p">(</span><span class="n">Flow</span><span class="p">[</span><span class="n">AdvancedProcessState</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Advanced flow with preprocessing and parallel processing.&quot;&quot;&quot;</span>
+
+    <span class="nd">@start</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">preprocess_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Preprocess and analyze input before routing.&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Preprocessing input...&quot;</span><span class="p">)</span>
+
+        <span class="n">user_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">user_input</span>
+
+        <span class="c1"># Analyze input complexity</span>
+        <span class="n">word_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_input</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="n">has_questions</span> <span class="o">=</span> <span class="s1">&#39;?&#39;</span> <span class="ow">in</span> <span class="n">user_input</span>
+        <span class="n">has_numbers</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">char</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">user_input</span><span class="p">)</span>
+
+        <span class="n">preprocessing_result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;word_count&quot;</span><span class="p">:</span> <span class="n">word_count</span><span class="p">,</span>
+            <span class="s2">&quot;has_questions&quot;</span><span class="p">:</span> <span class="n">has_questions</span><span class="p">,</span>
+            <span class="s2">&quot;has_numbers&quot;</span><span class="p">:</span> <span class="n">has_numbers</span><span class="p">,</span>
+            <span class="s2">&quot;complexity&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span> <span class="k">if</span> <span class="n">word_count</span> <span class="o">&gt;</span> <span class="mi">20</span> <span class="k">else</span> <span class="s2">&quot;low&quot;</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">preprocessing_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">preprocessing_result</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Preprocessing complete: </span><span class="si">{</span><span class="n">preprocessing_result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nd">@listen</span><span class="p">(</span><span class="n">preprocess_input</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">intelligent_routing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Enhanced routing based on preprocessing results.&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Performing intelligent routing...&quot;</span><span class="p">)</span>
+
+        <span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.routers.main_router</span><span class="w"> </span><span class="kn">import</span> <span class="n">route_user_input</span>
+
+        <span class="c1"># Get standard routing</span>
+        <span class="n">routing_info</span> <span class="o">=</span> <span class="n">route_user_input</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">user_input</span><span class="p">)</span>
+
+        <span class="c1"># Enhance routing based on preprocessing</span>
+        <span class="n">preprocessing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">preprocessing_results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">preprocessing</span><span class="p">[</span><span class="s2">&quot;complexity&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;high&quot;</span><span class="p">:</span>
+            <span class="n">routing_info</span><span class="p">[</span><span class="s2">&quot;processing_mode&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;detailed&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">routing_info</span><span class="p">[</span><span class="s2">&quot;processing_mode&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;standard&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">routing_info</span> <span class="o">=</span> <span class="n">routing_info</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Enhanced routing: </span><span class="si">{</span><span class="n">routing_info</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nd">@listen</span><span class="p">(</span><span class="n">intelligent_routing</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parallel_processing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Process input with multiple crews in parallel (simulated).&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting parallel processing...&quot;</span><span class="p">)</span>
+
+        <span class="n">crew_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">routing_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;crew_type&quot;</span><span class="p">)</span>
+        <span class="n">user_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">user_input</span>
+
+        <span class="c1"># Primary processing</span>
+        <span class="k">if</span> <span class="n">crew_type</span> <span class="o">==</span> <span class="s2">&quot;rag_crew&quot;</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.crews.rag_crew.rag_crew</span><span class="w"> </span><span class="kn">import</span> <span class="n">RagCrew</span>
+            <span class="n">primary_crew</span> <span class="o">=</span> <span class="n">RagCrew</span><span class="p">()</span>
+            <span class="n">primary_result</span> <span class="o">=</span> <span class="n">primary_crew</span><span class="o">.</span><span class="n">crew</span><span class="p">()</span><span class="o">.</span><span class="n">kickoff</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">user_input</span><span class="p">})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">parallel_results</span><span class="p">[</span><span class="s2">&quot;primary&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">primary_result</span><span class="o">.</span><span class="n">raw</span>
+
+        <span class="c1"># Secondary analysis (always run for additional insights)</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.crews.poem_crew.poem_crew</span><span class="w"> </span><span class="kn">import</span> <span class="n">PoemCrew</span>
+        <span class="n">poem_crew</span> <span class="o">=</span> <span class="n">PoemCrew</span><span class="p">()</span>
+        <span class="n">creative_result</span> <span class="o">=</span> <span class="n">poem_crew</span><span class="o">.</span><span class="n">crew</span><span class="p">()</span><span class="o">.</span><span class="n">kickoff</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;sentence_count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">parallel_results</span><span class="p">[</span><span class="s2">&quot;creative&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">creative_result</span><span class="o">.</span><span class="n">raw</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Parallel processing complete&quot;</span><span class="p">)</span>
+
+    <span class="nd">@listen</span><span class="p">(</span><span class="n">parallel_processing</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">synthesize_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Synthesize results from parallel processing.&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Synthesizing results...&quot;</span><span class="p">)</span>
+
+        <span class="n">primary_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">parallel_results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;primary&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">creative_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">parallel_results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;creative&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Create synthesis</span>
+        <span class="n">synthesis</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        PRIMARY ANALYSIS:</span>
+<span class="s2">        </span><span class="si">{</span><span class="n">primary_result</span><span class="si">}</span>
+
+<span class="s2">        CREATIVE PERSPECTIVE:</span>
+<span class="s2">        </span><span class="si">{</span><span class="n">creative_result</span><span class="si">}</span>
+
+<span class="s2">        SYNTHESIS:</span>
+<span class="s2">        The analysis provides comprehensive information while the creative perspective</span>
+<span class="s2">        offers an alternative viewpoint that enhances understanding.</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">final_synthesis</span> <span class="o">=</span> <span class="n">synthesis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">confidence_score</span> <span class="o">=</span> <span class="mf">0.85</span>  <span class="c1"># Mock confidence score</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Results synthesized successfully&quot;</span><span class="p">)</span>
+
+    <span class="nd">@listen</span><span class="p">(</span><span class="n">synthesize_results</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate final comprehensive report.&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generating final report...&quot;</span><span class="p">)</span>
+
+        <span class="n">report</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        =====================================</span>
+<span class="s2">        ADVANCED PROCESSING REPORT</span>
+<span class="s2">        =====================================</span>
+
+<span class="s2">        INPUT: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">user_input</span><span class="si">}</span>
+
+<span class="s2">        PREPROCESSING ANALYSIS:</span>
+<span class="s2">        </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">preprocessing_results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span>
+
+<span class="s2">        ROUTING DECISION:</span>
+<span class="s2">        </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">routing_info</span><span class="si">}</span>
+
+<span class="s2">        RESULTS SYNTHESIS:</span>
+<span class="s2">        </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">final_synthesis</span><span class="si">}</span>
+
+<span class="s2">        CONFIDENCE SCORE: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">confidence_score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span>
+
+<span class="s2">        =====================================</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Save to file</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;advanced_processing_report.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Report generated: advanced_processing_report.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Step 2: Use the Advanced Flow</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create and use advanced flow</span>
+<span class="n">advanced_flow</span> <span class="o">=</span> <span class="n">AdvancedMultiProcessFlow</span><span class="p">()</span>
+<span class="n">advanced_flow</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">user_input</span> <span class="o">=</span> <span class="s2">&quot;Explain the implications of quantum computing on cybersecurity&quot;</span>
+<span class="n">advanced_flow</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="tutorial-4-creating-interactive-applications">
+<h2>🎨 <strong>Tutorial 4: Creating Interactive Applications</strong><a class="headerlink" href="#tutorial-4-creating-interactive-applications" title="Link to this heading"></a></h2>
+<p>Learn how to build interactive applications using the router system.</p>
+<p><strong>Step 1: Create a Conversational Interface</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">scrolledtext</span><span class="p">,</span> <span class="n">messagebox</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">threading</span><span class="w"> </span><span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiProcessFlow</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CrewAIGUI</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Graphical user interface for the CrewAI system.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;CrewAI Multi-Process Router&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;800x600&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_ui</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set up the user interface.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Input frame</span>
+        <span class="n">input_frame</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">input_frame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">input_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Enter your request:&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">anchor</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">W</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_text</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">input_frame</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_text</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="c1"># Buttons frame</span>
+        <span class="n">buttons_frame</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">buttons_frame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_btn</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+            <span class="n">buttons_frame</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Process Request&quot;</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process_request</span><span class="p">,</span>
+            <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#2980B9&quot;</span><span class="p">,</span>
+            <span class="n">fg</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_btn</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_btn</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+            <span class="n">buttons_frame</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Clear&quot;</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">clear_output</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_btn</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="c1"># Output frame</span>
+        <span class="n">output_frame</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">output_frame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">output_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Results:&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">anchor</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">W</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_text</span> <span class="o">=</span> <span class="n">scrolledtext</span><span class="o">.</span><span class="n">ScrolledText</span><span class="p">(</span>
+            <span class="n">output_frame</span><span class="p">,</span>
+            <span class="n">wrap</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">WORD</span><span class="p">,</span>
+            <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_text</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="c1"># Status frame</span>
+        <span class="n">status_frame</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">status_frame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
+            <span class="n">status_frame</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Ready&quot;</span><span class="p">,</span>
+            <span class="n">relief</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">SUNKEN</span><span class="p">,</span>
+            <span class="n">anchor</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">W</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Process the user request in a separate thread.&quot;&quot;&quot;</span>
+        <span class="n">user_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_text</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span> <span class="n">tk</span><span class="o">.</span><span class="n">END</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">user_input</span><span class="p">:</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Warning&quot;</span><span class="p">,</span> <span class="s2">&quot;Please enter a request&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Disable button during processing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_btn</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_status</span><span class="p">(</span><span class="s2">&quot;Processing...&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Process in separate thread to avoid blocking UI</span>
+        <span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_thread</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">user_input</span><span class="p">,))</span>
+        <span class="n">thread</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_process_thread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_input</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Process request in separate thread.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Create and run flow</span>
+            <span class="n">flow</span> <span class="o">=</span> <span class="n">MultiProcessFlow</span><span class="p">()</span>
+            <span class="n">flow</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">user_input</span> <span class="o">=</span> <span class="n">user_input</span>
+
+            <span class="c1"># Manual flow execution for GUI feedback</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_status</span><span class="p">(</span><span class="s2">&quot;Routing input...&quot;</span><span class="p">)</span>
+            <span class="n">flow</span><span class="o">.</span><span class="n">route_input</span><span class="p">()</span>
+
+            <span class="n">routing_info</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">routing_info</span>
+            <span class="n">crew_type</span> <span class="o">=</span> <span class="n">routing_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;crew_type&quot;</span><span class="p">,</span> <span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_status</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing with </span><span class="si">{</span><span class="n">crew_type</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+            <span class="n">flow</span><span class="o">.</span><span class="n">process_request</span><span class="p">()</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">result</span>
+
+            <span class="c1"># Update UI in main thread</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_results</span><span class="p">,</span> <span class="n">user_input</span><span class="p">,</span> <span class="n">routing_info</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_error</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_input</span><span class="p">,</span> <span class="n">routing_info</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update results in main thread.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_text</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_text</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span> <span class="n">tk</span><span class="o">.</span><span class="n">END</span><span class="p">)</span>
+
+        <span class="n">output</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;INPUT: </span><span class="si">{</span><span class="n">user_input</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>ROUTING INFO:
+- Category: {routing_info.get(‘main_category’, ‘N/A’)}
+- Crew: {routing_info.get(‘crew_type’, ‘N/A’)}
+- Sub-category: {routing_info.get(‘sub_category’, ‘N/A’)}</p>
+<p>RESULT:
+{result}
+“””</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><p>self.output_text.insert(“1.0”, output)
+self.output_text.config(state=tk.DISABLED)</p>
+<p>self.process_btn.config(state=tk.NORMAL)
+self.update_status(“Complete”)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>def _show_error(self, error_msg):</dt><dd><p>“””Show error in main thread.”””
+messagebox.showerror(“Error”, f”Processing failed: {error_msg}”)
+self.process_btn.config(state=tk.NORMAL)
+self.update_status(“Error”)</p>
+</dd>
+<dt>def update_status(self, message):</dt><dd><p>“””Update status label.”””
+self.status_label.config(text=message)
+self.root.update()</p>
+</dd>
+<dt>def clear_output(self):</dt><dd><p>“””Clear the output text.”””
+self.output_text.config(state=tk.NORMAL)
+self.output_text.delete(“1.0”, tk.END)
+self.output_text.config(state=tk.DISABLED)
+self.update_status(“Ready”)</p>
+</dd>
+<dt>def run(self):</dt><dd><p>“””Start the GUI application.”””
+self.root.mainloop()</p>
+</dd>
+</dl>
+</div></blockquote>
+<p># Usage
+if __name__ == “__main__”:</p>
+<blockquote>
+<div><p>app = CrewAIGUI()
+app.run()</p>
+</div></blockquote>
+</div></blockquote>
+<p><strong>Step 2: Create a Web Dashboard</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">session</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flask_socketio</span><span class="w"> </span><span class="kn">import</span> <span class="n">SocketIO</span><span class="p">,</span> <span class="n">emit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiProcessFlow</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.routers.main_router</span><span class="w"> </span><span class="kn">import</span> <span class="n">route_user_input</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="s1">&#39;your-secret-key&#39;</span>
+<span class="n">socketio</span> <span class="o">=</span> <span class="n">SocketIO</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">cors_allowed_origins</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SessionManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Manage user sessions and conversation history.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sessions</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">session_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessions</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sessions</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;history&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessions</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_interaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">,</span> <span class="n">user_input</span><span class="p">,</span> <span class="n">routing_info</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="n">session_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+        <span class="n">session_data</span><span class="p">[</span><span class="s2">&quot;history&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+            <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="n">user_input</span><span class="p">,</span>
+            <span class="s2">&quot;routing&quot;</span><span class="p">:</span> <span class="n">routing_info</span><span class="p">,</span>
+            <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="n">result</span>
+        <span class="p">})</span>
+
+
+<span class="n">session_manager</span> <span class="o">=</span> <span class="n">SessionManager</span><span class="p">()</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main dashboard page.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;session_id&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">session</span><span class="p">:</span>
+        <span class="n">session</span><span class="p">[</span><span class="s1">&#39;session_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;dashboard.html&#39;</span><span class="p">)</span>
+
+
+<span class="nd">@socketio</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s1">&#39;process_request&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_process_request</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Handle real-time processing requests.&quot;&quot;&quot;</span>
+    <span class="n">session_id</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;session_id&#39;</span><span class="p">)</span>
+    <span class="n">user_input</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">user_input</span><span class="p">:</span>
+        <span class="n">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;No input provided&#39;</span><span class="p">})</span>
+        <span class="k">return</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Emit status updates</span>
+        <span class="n">emit</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;Routing input...&#39;</span><span class="p">,</span> <span class="s1">&#39;stage&#39;</span><span class="p">:</span> <span class="s1">&#39;routing&#39;</span><span class="p">})</span>
+
+        <span class="c1"># Route the input</span>
+        <span class="n">routing_info</span> <span class="o">=</span> <span class="n">route_user_input</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
+
+        <span class="n">emit</span><span class="p">(</span><span class="s1">&#39;routing_result&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;routing&#39;</span><span class="p">:</span> <span class="n">routing_info</span><span class="p">,</span>
+            <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Routed to: </span><span class="si">{</span><span class="n">routing_info</span><span class="p">[</span><span class="s1">&#39;crew_type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">})</span>
+
+        <span class="c1"># Process with appropriate crew</span>
+        <span class="n">emit</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Processing with </span><span class="si">{</span><span class="n">routing_info</span><span class="p">[</span><span class="s1">&#39;crew_type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="s1">&#39;stage&#39;</span><span class="p">:</span> <span class="s1">&#39;processing&#39;</span><span class="p">})</span>
+
+        <span class="n">flow</span> <span class="o">=</span> <span class="n">MultiProcessFlow</span><span class="p">()</span>
+        <span class="n">flow</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">user_input</span> <span class="o">=</span> <span class="n">user_input</span>
+        <span class="n">flow</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">routing_info</span> <span class="o">=</span> <span class="n">routing_info</span>
+        <span class="n">flow</span><span class="o">.</span><span class="n">process_request</span><span class="p">()</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">result</span>
+
+        <span class="c1"># Store in session</span>
+        <span class="n">session_manager</span><span class="o">.</span><span class="n">add_interaction</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">user_input</span><span class="p">,</span> <span class="n">routing_info</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+        <span class="c1"># Emit final result</span>
+        <span class="n">emit</span><span class="p">(</span><span class="s1">&#39;processing_complete&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;input&#39;</span><span class="p">:</span> <span class="n">user_input</span><span class="p">,</span>
+            <span class="s1">&#39;routing&#39;</span><span class="p">:</span> <span class="n">routing_info</span><span class="p">,</span>
+            <span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="n">result</span><span class="p">,</span>
+            <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+        <span class="p">})</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)})</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/history&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_history</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get conversation history for current session.&quot;&quot;&quot;</span>
+    <span class="n">session_id</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;session_id&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">session_id</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">([])</span>
+
+    <span class="n">session_data</span> <span class="o">=</span> <span class="n">session_manager</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">session_data</span><span class="p">[</span><span class="s1">&#39;history&#39;</span><span class="p">])</span>
+
+
+<span class="c1"># HTML Template (save as templates/dashboard.html)</span>
+<span class="n">dashboard_template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&lt;!DOCTYPE html&gt;</span>
+<span class="s2">&lt;html&gt;</span>
+<span class="s2">&lt;head&gt;</span>
+<span class="s2">    &lt;title&gt;CrewAI Dashboard&lt;/title&gt;</span>
+<span class="s2">    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js&quot;&gt;&lt;/script&gt;</span>
+<span class="s2">    &lt;style&gt;</span>
+<span class="s2">        body { font-family: Arial, sans-serif; margin: 20px; }</span>
+<span class="s2">        .container { max-width: 1200px; margin: 0 auto; }</span>
+<span class="s2">        .input-section { margin-bottom: 20px; }</span>
+<span class="s2">        .input-section textarea { width: 100%; height: 100px; }</span>
+<span class="s2">        .button { background: #2980B9; color: white; padding: 10px 20px; border: none; cursor: pointer; }</span>
+<span class="s2">        .status { padding: 10px; background: #f0f0f0; margin: 10px 0; }</span>
+<span class="s2">        .result { border: 1px solid #ddd; padding: 15px; margin: 10px 0; }</span>
+<span class="s2">        .history { background: #f9f9f9; padding: 10px; margin: 10px 0; }</span>
+<span class="s2">    &lt;/style&gt;</span>
+<span class="s2">&lt;/head&gt;</span>
+<span class="s2">&lt;body&gt;</span>
+<span class="s2">    &lt;div class=&quot;container&quot;&gt;</span>
+<span class="s2">        &lt;h1&gt;CrewAI Multi-Process Router Dashboard&lt;/h1&gt;</span>
+
+<span class="s2">        &lt;div class=&quot;input-section&quot;&gt;</span>
+<span class="s2">            &lt;textarea id=&quot;userInput&quot; placeholder=&quot;Enter your request...&quot;&gt;&lt;/textarea&gt;</span>
+<span class="s2">            &lt;br&gt;&lt;br&gt;</span>
+<span class="s2">            &lt;button class=&quot;button&quot; onclick=&quot;processRequest()&quot;&gt;Process Request&lt;/button&gt;</span>
+<span class="s2">            &lt;button class=&quot;button&quot; onclick=&quot;clearResults()&quot;&gt;Clear&lt;/button&gt;</span>
+<span class="s2">        &lt;/div&gt;</span>
+
+<span class="s2">        &lt;div id=&quot;status&quot; class=&quot;status&quot; style=&quot;display: none;&quot;&gt;&lt;/div&gt;</span>
+<span class="s2">        &lt;div id=&quot;results&quot;&gt;&lt;/div&gt;</span>
+<span class="s2">        &lt;div id=&quot;history&quot;&gt;&lt;/div&gt;</span>
+<span class="s2">    &lt;/div&gt;</span>
+
+<span class="s2">    &lt;script&gt;</span>
+<span class="s2">        const socket = io();</span>
+
+<span class="s2">        function processRequest() {</span>
+<span class="s2">            const input = document.getElementById(&#39;userInput&#39;).value.trim();</span>
+<span class="s2">            if (!input) {</span>
+<span class="s2">                alert(&#39;Please enter a request&#39;);</span>
+<span class="s2">                return;</span>
+<span class="s2">            }</span>
+
+<span class="s2">            socket.emit(&#39;process_request&#39;, { input: input });</span>
+<span class="s2">        }</span>
+
+<span class="s2">        function clearResults() {</span>
+<span class="s2">            document.getElementById(&#39;results&#39;).innerHTML = &#39;&#39;;</span>
+<span class="s2">            document.getElementById(&#39;status&#39;).style.display = &#39;none&#39;;</span>
+<span class="s2">        }</span>
+
+<span class="s2">        socket.on(&#39;status&#39;, function(data) {</span>
+<span class="s2">            const statusDiv = document.getElementById(&#39;status&#39;);</span>
+<span class="s2">            statusDiv.textContent = data.message;</span>
+<span class="s2">            statusDiv.style.display = &#39;block&#39;;</span>
+<span class="s2">        });</span>
+
+<span class="s2">        socket.on(&#39;routing_result&#39;, function(data) {</span>
+<span class="s2">            console.log(&#39;Routing:&#39;, data.routing);</span>
+<span class="s2">        });</span>
+
+<span class="s2">        socket.on(&#39;processing_complete&#39;, function(data) {</span>
+<span class="s2">            const resultsDiv = document.getElementById(&#39;results&#39;);</span>
+<span class="s2">            resultsDiv.innerHTML = `</span>
+<span class="s2">                &lt;div class=&quot;result&quot;&gt;</span>
+<span class="s2">                    &lt;h3&gt;Processing Complete&lt;/h3&gt;</span>
+<span class="s2">                    &lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; $</span><span class="si">{data.input}</span><span class="s2">&lt;/p&gt;</span>
+<span class="s2">                    &lt;p&gt;&lt;strong&gt;Routed to:&lt;/strong&gt; $</span><span class="si">{data.routing.crew_type}</span><span class="s2">&lt;/p&gt;</span>
+<span class="s2">                    &lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; $</span><span class="si">{data.routing.main_category}</span><span class="s2">&lt;/p&gt;</span>
+<span class="s2">                    &lt;div&gt;&lt;strong&gt;Result:&lt;/strong&gt;&lt;br&gt;$</span><span class="si">{data.result}</span><span class="s2">&lt;/div&gt;</span>
+<span class="s2">                    &lt;p&gt;&lt;small&gt;Processed at: ${new Date(data.timestamp).toLocaleString()}&lt;/small&gt;&lt;/p&gt;</span>
+<span class="s2">                &lt;/div&gt;</span>
+<span class="s2">            `;</span>
+
+<span class="s2">            document.getElementById(&#39;status&#39;).style.display = &#39;none&#39;;</span>
+<span class="s2">        });</span>
+
+<span class="s2">        socket.on(&#39;error&#39;, function(data) {</span>
+<span class="s2">            alert(&#39;Error: &#39; + data.message);</span>
+<span class="s2">            document.getElementById(&#39;status&#39;).style.display = &#39;none&#39;;</span>
+<span class="s2">        });</span>
+<span class="s2">    &lt;/script&gt;</span>
+<span class="s2">&lt;/body&gt;</span>
+<span class="s2">&lt;/html&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># Save template</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">&#39;templates&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;templates/dashboard.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">dashboard_template</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">socketio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>These tutorials provide comprehensive guidance for extending and customizing the CrewAI Multi-Process Router System for various use cases and requirements.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="development.html" class="btn btn-neutral float-right" title="Development Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Bardini-Rremilli Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

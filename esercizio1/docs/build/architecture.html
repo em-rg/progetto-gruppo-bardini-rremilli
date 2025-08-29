@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System Architecture &mdash; CrewAI Multi-Process Router System 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbb40358" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbb40358" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api_reference.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            CrewAI Multi-Process Router System
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#prerequisites">📋 <strong>Prerequisites</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#installation">🛠️ <strong>Installation</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-the-system">🚀 <strong>Running the System</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#first-steps">📝 <strong>First Steps</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#configuration">🔧 <strong>Configuration</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#example-workflows">🎯 <strong>Example Workflows</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#troubleshooting">🐛 <strong>Troubleshooting</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#next-steps">📚 <strong>Next Steps</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#tips">💡 <strong>Tips</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">System Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#high-level-architecture">🏗️ <strong>High-Level Architecture</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#core-components">🧩 <strong>Core Components</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-flow">🔄 <strong>Data Flow</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#design-patterns">🏛️ <strong>Design Patterns</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-architecture">🔧 <strong>Configuration Architecture</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#state-management">📊 <strong>State Management</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security-architecture">🛡️ <strong>Security Architecture</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-considerations">⚡ <strong>Performance Considerations</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-observability">🔍 <strong>Monitoring &amp; Observability</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modules-overview">📚 <strong>Modules Overview</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.main">🎯 <strong>Main Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState"><code class="docutils literal notranslate"><span class="pre">MultiProcessState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.user_input"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.routing_info"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.result"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.sentence_count"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id0"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id1"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id2"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id3"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessState.model_config"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow.get_user_input"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.get_user_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow.route_input"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.route_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow.process_request"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.process_request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.main.MultiProcessFlow.save_result"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.save_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.kickoff"><code class="docutils literal notranslate"><span class="pre">kickoff()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.plot"><code class="docutils literal notranslate"><span class="pre">plot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.main.demo_routing"><code class="docutils literal notranslate"><span class="pre">demo_routing()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id4"><code class="docutils literal notranslate"><span class="pre">MultiProcessState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id5"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id6"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id7"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id8"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id9"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id10"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id11"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id12"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id13"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id14"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id15"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.get_user_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id16"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.route_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id17"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.process_request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id18"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.save_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id19"><code class="docutils literal notranslate"><span class="pre">kickoff()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id20"><code class="docutils literal notranslate"><span class="pre">plot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id21"><code class="docutils literal notranslate"><span class="pre">demo_routing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.routers.main_router">🧭 <strong>Router Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter"><code class="docutils literal notranslate"><span class="pre">MainRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter.input_classifier_agent"><code class="docutils literal notranslate"><span class="pre">MainRouter.input_classifier_agent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter.__init__"><code class="docutils literal notranslate"><span class="pre">MainRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter.classify_input_task"><code class="docutils literal notranslate"><span class="pre">MainRouter.classify_input_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MainRouter.crew"><code class="docutils literal notranslate"><span class="pre">MainRouter.crew()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter"><code class="docutils literal notranslate"><span class="pre">MathRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter.number_patterns"><code class="docutils literal notranslate"><span class="pre">MathRouter.number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter.text_number_patterns"><code class="docutils literal notranslate"><span class="pre">MathRouter.text_number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter.__init__"><code class="docutils literal notranslate"><span class="pre">MathRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.MathRouter.classify_math_input"><code class="docutils literal notranslate"><span class="pre">MathRouter.classify_math_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.routers.main_router.route_user_input"><code class="docutils literal notranslate"><span class="pre">route_user_input()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id22"><code class="docutils literal notranslate"><span class="pre">MainRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id23"><code class="docutils literal notranslate"><span class="pre">MainRouter.input_classifier_agent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id24"><code class="docutils literal notranslate"><span class="pre">MainRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id25"><code class="docutils literal notranslate"><span class="pre">MainRouter.classify_input_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id26"><code class="docutils literal notranslate"><span class="pre">MainRouter.crew()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id27"><code class="docutils literal notranslate"><span class="pre">MathRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id28"><code class="docutils literal notranslate"><span class="pre">MathRouter.number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id29"><code class="docutils literal notranslate"><span class="pre">MathRouter.text_number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id30"><code class="docutils literal notranslate"><span class="pre">MathRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id31"><code class="docutils literal notranslate"><span class="pre">MathRouter.classify_math_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id32"><code class="docutils literal notranslate"><span class="pre">route_user_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.crews.rag_crew.rag_crew">🔍 <strong>RAG Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.crews.rag_crew.rag_crew.RagCrew"><code class="docutils literal notranslate"><span class="pre">RagCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.crews.math_crew.math_crew">🧮 <strong>Math Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.crews.math_crew.math_crew.MathCrew"><code class="docutils literal notranslate"><span class="pre">MathCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.crews.math_text_crew.math_text_crew">📝 <strong>Math Text Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.crews.math_text_crew.math_text_crew.MathTextCrew"><code class="docutils literal notranslate"><span class="pre">MathTextCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.crews.poem_crew.poem_crew">🎨 <strong>Poem Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.crews.poem_crew.poem_crew.PoemCrew"><code class="docutils literal notranslate"><span class="pre">PoemCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-esercizio1.tools.custom_tool">🛠️ <strong>Tools Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorToolInput"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorToolInput.expression"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id33"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorToolInput.model_config"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.name"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.description"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.args_schema"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.model_config"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberToolInput"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberToolInput.text"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id36"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberToolInput.model_config"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.name"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.description"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.args_schema"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.model_config"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomToolInput"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomToolInput.argument"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id37"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomToolInput.model_config"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool"><code class="docutils literal notranslate"><span class="pre">MyCustomTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.name"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.description"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.args_schema"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.model_config"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id38"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id41"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id42"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id43"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id44"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.env_vars"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.env_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.description_updated"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.description_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.cache_function"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.cache_function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.result_as_answer"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.result_as_answer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.max_usage_count"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.max_usage_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MathCalculatorTool.current_usage_count"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.current_usage_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id45"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id46"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id47"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id48"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id49"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.env_vars"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.env_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.description_updated"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.description_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.cache_function"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.cache_function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.result_as_answer"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.result_as_answer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.max_usage_count"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.max_usage_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.TextToNumberTool.current_usage_count"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.current_usage_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id50"><code class="docutils literal notranslate"><span class="pre">MyCustomTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id51"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id52"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id53"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id54"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.env_vars"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.env_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.description_updated"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.description_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.cache_function"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.cache_function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.result_as_answer"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.result_as_answer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.max_usage_count"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.max_usage_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#esercizio1.tools.custom_tool.MyCustomTool.current_usage_count"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.current_usage_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id55"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id56"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id57"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id58"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id59"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id60"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id61"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id62"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id63"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id64"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id65"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id66"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#type-definitions">📋 <strong>Type Definitions</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#configuration-schemas">🔧 <strong>Configuration Schemas</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#usage-examples">🚀 <strong>Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#error-handling">⚠️ <strong>Error Handling</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#security-considerations">🔒 <strong>Security Considerations</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#performance-notes">📈 <strong>Performance Notes</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#basic-usage-examples">🎯 <strong>Basic Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#tool-usage-examples">🛠️ <strong>Tool Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#advanced-usage-examples">🎭 <strong>Advanced Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#integration-examples">🔧 <strong>Integration Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#performance-examples">📊 <strong>Performance Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#creative-examples">🎨 <strong>Creative Examples</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-1-creating-a-custom-crew">🎯 <strong>Tutorial 1: Creating a Custom Crew</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-2-building-custom-tools">🛠️ <strong>Tutorial 2: Building Custom Tools</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-3-advanced-flow-customization">🔧 <strong>Tutorial 3: Advanced Flow Customization</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-4-creating-interactive-applications">🎨 <strong>Tutorial 4: Creating Interactive Applications</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#development-setup">🛠️ <strong>Development Setup</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#project-structure">📁 <strong>Project Structure</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#testing">🧪 <strong>Testing</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#documentation">📚 <strong>Documentation</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#extending-the-system">🔧 <strong>Extending the System</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#code-style-guidelines">🎨 <strong>Code Style Guidelines</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#performance-guidelines">🚀 <strong>Performance Guidelines</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#security-best-practices">🔒 <strong>Security Best Practices</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#release-process">📋 <strong>Release Process</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributing">🤝 <strong>Contributing</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#support-and-community">📞 <strong>Support and Community</strong></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CrewAI Multi-Process Router System</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">System Architecture</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/architecture.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="system-architecture">
+<h1>System Architecture<a class="headerlink" href="#system-architecture" title="Link to this heading"></a></h1>
+<p>This document provides a comprehensive overview of the CrewAI Multi-Process Router System architecture, design patterns, and component interactions.</p>
+<section id="high-level-architecture">
+<h2>🏗️ <strong>High-Level Architecture</strong><a class="headerlink" href="#high-level-architecture" title="Link to this heading"></a></h2>
+<p>The system follows a <strong>Flow-Based Architecture</strong> pattern with intelligent routing and specialized processing units:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   User Input    │───▶│  Main Router    │───▶│ Specialized     │
+│                 │    │  (AI-Powered)   │    │ Crews           │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+                                │                       │
+                                ▼                       ▼
+                       ┌─────────────────┐    ┌─────────────────┐
+                       │  Math Router    │    │   Results &amp;     │
+                       │ (Rule-Based)    │    │   Persistence   │
+                       └─────────────────┘    └─────────────────┘
+</pre></div>
+</div>
+</section>
+<section id="core-components">
+<h2>🧩 <strong>Core Components</strong><a class="headerlink" href="#core-components" title="Link to this heading"></a></h2>
+<p><strong>1. Flow Orchestrator (MultiProcessFlow)</strong></p>
+<p>The central coordinator that manages the entire process:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MultiProcessFlow</span><span class="p">(</span><span class="n">Flow</span><span class="p">[</span><span class="n">MultiProcessState</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main flow orchestrator for the multi-process routing system.&quot;&quot;&quot;</span>
+
+    <span class="nd">@start</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+
+    <span class="nd">@listen</span><span class="p">(</span><span class="n">get_user_input</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">route_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+
+    <span class="nd">@listen</span><span class="p">(</span><span class="n">route_input</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+
+    <span class="nd">@listen</span><span class="p">(</span><span class="n">process_request</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt><strong>Key Responsibilities:</strong></dt><dd><ul class="simple">
+<li><p>User input collection and validation</p></li>
+<li><p>Flow state management</p></li>
+<li><p>Component coordination</p></li>
+<li><p>Result persistence</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>2. Routing System</strong></p>
+<p><strong>Main Router (AI-Powered)</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MainRouter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;AI-powered classification of user intent.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">classify_input_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Task</span><span class="p">:</span>
+        <span class="c1"># Creates AI task for intent classification</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">crew</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Crew</span><span class="p">:</span>
+        <span class="c1"># Returns configured crew for classification</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt><strong>Classifications:</strong></dt><dd><ul class="simple">
+<li><p><strong>RAG</strong>: Information retrieval, knowledge queries</p></li>
+<li><p><strong>MATH</strong>: Mathematical calculations and operations</p></li>
+<li><p><strong>POEM</strong>: Creative writing, poetry, storytelling</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Math Sub-Router (Rule-Based)</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MathRouter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Rule-based classification for mathematical expressions.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">classify_math_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="c1"># Returns &#39;NUMERIC&#39; or &#39;TEXTUAL&#39;</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt><strong>Sub-Classifications:</strong></dt><dd><ul class="simple">
+<li><p><strong>NUMERIC</strong>: Digit-based numbers (e.g., “15 + 27”)</p></li>
+<li><p><strong>TEXTUAL</strong>: Word-based numbers (e.g., “fifteen plus twenty-seven”)</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>3. Specialized Crews</strong></p>
+<p>Each crew implements the <strong>CrewBase</strong> pattern with specialized agents and tasks:</p>
+<p><strong>RAG Crew Architecture</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RAG Crew
+├── Knowledge Researcher (Agent)
+│   └── Research Information (Task)
+└── Information Synthesizer (Agent)
+    └── Synthesize Answer (Task)
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@CrewBase</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RagCrew</span><span class="p">:</span>
+    <span class="nd">@agent</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">knowledge_researcher</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Agent</span><span class="p">:</span> <span class="o">...</span>
+
+    <span class="nd">@agent</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">information_synthesizer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Agent</span><span class="p">:</span> <span class="o">...</span>
+
+    <span class="nd">@task</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">research_information</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Task</span><span class="p">:</span> <span class="o">...</span>
+
+    <span class="nd">@task</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">synthesize_answer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Task</span><span class="p">:</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p><strong>Math Crew Architecture</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Math Crew
+├── Math Parser (Agent)
+│   └── Parse Math Expression (Task)
+├── Math Calculator (Agent)
+│   └── Calculate Result (Task)
+└── Result Formatter (Agent)
+    └── Format Result (Task)
+</pre></div>
+</div>
+<p><strong>Math Text Crew Architecture</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Math Text Crew
+├── Text Number Parser (Agent + Tools)
+│   └── Parse Text Math Expression (Task)
+├── Text Math Calculator (Agent + Tools)
+│   └── Calculate Text Math Result (Task)
+└── Text Result Formatter (Agent)
+    └── Format Text Math Result (Task)
+</pre></div>
+</div>
+<p><strong>Poem Crew Architecture</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Poem Crew
+└── Poem Writer (Agent)
+    └── Write Poem (Task)
+</pre></div>
+</div>
+<p><strong>4. Custom Tools</strong></p>
+<p><strong>MathCalculatorTool</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MathCalculatorTool</span><span class="p">(</span><span class="n">BaseTool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Safe mathematical expression calculator.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="c1"># Safe evaluation with validation</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_is_safe_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="c1"># Security validation</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt><strong>Features:</strong></dt><dd><ul class="simple">
+<li><p>Safe expression evaluation</p></li>
+<li><p>Input validation and sanitization</p></li>
+<li><p>Support for basic arithmetic and power operations</p></li>
+<li><p>Error handling and division by zero protection</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>TextToNumberTool</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">TextToNumberTool</span><span class="p">(</span><span class="n">BaseTool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Multilingual text-to-number converter.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_convert_text_numbers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="c1"># Converts text numbers to digits</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_word_to_num_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="c1"># Multilingual number dictionary</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt><strong>Features:</strong></dt><dd><ul class="simple">
+<li><p>English and Italian number word support</p></li>
+<li><p>Comprehensive number dictionary (0-1000+)</p></li>
+<li><p>Punctuation handling</p></li>
+<li><p>Preserves non-number words</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="data-flow">
+<h2>🔄 <strong>Data Flow</strong><a class="headerlink" href="#data-flow" title="Link to this heading"></a></h2>
+<p><strong>1. Input Processing Flow</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>User Input
+   ↓
+Input Validation
+   ↓
+State Initialization
+   ↓
+Main Router Classification
+   ↓
+[RAG|MATH|POEM] Category
+   ↓
+Math Sub-Classification (if MATH)
+   ↓
+[NUMERIC|TEXTUAL] Sub-Category
+   ↓
+Crew Selection
+   ↓
+Specialized Processing
+</pre></div>
+</div>
+<p><strong>2. Crew Processing Flow</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Selected Crew
+   ↓
+Agent Initialization
+   ↓
+Task Configuration
+   ↓
+Sequential Task Execution
+   ↓
+Context Sharing Between Tasks
+   ↓
+Result Generation
+   ↓
+Output Formatting
+</pre></div>
+</div>
+<p><strong>3. Result Flow</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Crew Result
+   ↓
+State Update
+   ↓
+File Generation
+   ↓
+Result Persistence
+   ↓
+User Notification
+</pre></div>
+</div>
+</section>
+<section id="design-patterns">
+<h2>🏛️ <strong>Design Patterns</strong><a class="headerlink" href="#design-patterns" title="Link to this heading"></a></h2>
+<p><strong>1. Flow Pattern</strong></p>
+<p>Uses CrewAI Flow for declarative process orchestration:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@start</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">step1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+
+<span class="nd">@listen</span><span class="p">(</span><span class="n">step1</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">step2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+
+<span class="nd">@listen</span><span class="p">(</span><span class="n">step2</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">step3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p><strong>2. Strategy Pattern</strong></p>
+<p>Different crews implement the same interface but different strategies:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># All crews implement this pattern</span>
+<span class="nd">@CrewBase</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">XxxCrew</span><span class="p">:</span>
+    <span class="nd">@crew</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">crew</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Crew</span><span class="p">:</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p><strong>3. Factory Pattern</strong></p>
+<p>Router acts as a factory for crew selection:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">route_user_input</span><span class="p">(</span><span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="c1"># Factory logic for crew selection</span>
+    <span class="k">if</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;RAG&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;crew_type&quot;</span><span class="p">:</span> <span class="s2">&quot;rag_crew&quot;</span><span class="p">}</span>
+    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;MATH&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;crew_type&quot;</span><span class="p">:</span> <span class="s2">&quot;math_crew&quot;</span><span class="p">}</span>
+    <span class="c1"># ...</span>
+</pre></div>
+</div>
+<p><strong>4. Template Method Pattern</strong></p>
+<p>Tools follow a consistent template:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CustomTool</span><span class="p">(</span><span class="n">BaseTool</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Tool Name&quot;</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Tool Description&quot;</span>
+    <span class="n">args_schema</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span> <span class="o">=</span> <span class="n">InputSchema</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="c1"># Implementation</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-architecture">
+<h2>🔧 <strong>Configuration Architecture</strong><a class="headerlink" href="#configuration-architecture" title="Link to this heading"></a></h2>
+<p><strong>YAML-Based Configuration</strong></p>
+<p>Each crew uses YAML files for agent and task configuration:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>crews/
+├── rag_crew/
+│   └── config/
+│       ├── agents.yaml
+│       └── tasks.yaml
+├── math_crew/
+│   └── config/
+│       ├── agents.yaml
+│       └── tasks.yaml
+└── ...
+</pre></div>
+</div>
+<p><strong>Configuration Schema</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># agents.yaml</span>
+<span class="nt">agent_name</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Agent Role Description</span>
+<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Agent Goal with {parameters}</span>
+<span class="w">  </span><span class="nt">backstory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Agent Background Story</span>
+
+<span class="c1"># tasks.yaml</span>
+<span class="nt">task_name</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Task Description with {parameters}</span>
+<span class="w">  </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Expected Output Description</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agent_name</span>
+</pre></div>
+</div>
+</section>
+<section id="state-management">
+<h2>📊 <strong>State Management</strong><a class="headerlink" href="#state-management" title="Link to this heading"></a></h2>
+<p><strong>MultiProcessState Schema</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MultiProcessState</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>           <span class="c1"># Original user input</span>
+    <span class="n">routing_info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Routing decisions</span>
+    <span class="n">result</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>               <span class="c1"># Final processed result</span>
+    <span class="n">sentence_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>        <span class="c1"># Poem-specific parameter</span>
+</pre></div>
+</div>
+<p><strong>State Transitions</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Empty State
+   ↓ get_user_input()
+Input Captured
+   ↓ route_input()
+Routing Decided
+   ↓ process_request()
+Result Generated
+   ↓ save_result()
+Persisted State
+</pre></div>
+</div>
+</section>
+<section id="security-architecture">
+<h2>🛡️ <strong>Security Architecture</strong><a class="headerlink" href="#security-architecture" title="Link to this heading"></a></h2>
+<p><strong>Input Validation</strong></p>
+<ul class="simple">
+<li><p>Mathematical expression sanitization</p></li>
+<li><p>Safe evaluation patterns</p></li>
+<li><p>Injection prevention</p></li>
+</ul>
+<p><strong>Safe Execution</strong></p>
+<ul class="simple">
+<li><p>No arbitrary code execution</p></li>
+<li><p>Controlled evaluation environment</p></li>
+<li><p>Error boundary handling</p></li>
+</ul>
+<p><strong>Data Protection</strong></p>
+<ul class="simple">
+<li><p>No sensitive data logging</p></li>
+<li><p>Secure state management</p></li>
+<li><p>Clean input/output separation</p></li>
+</ul>
+</section>
+<section id="performance-considerations">
+<h2>⚡ <strong>Performance Considerations</strong><a class="headerlink" href="#performance-considerations" title="Link to this heading"></a></h2>
+<p><strong>Routing Optimization</strong></p>
+<ul class="simple">
+<li><p>Pattern-based fallbacks for offline operation</p></li>
+<li><p>Efficient regex compilation</p></li>
+<li><p>Early classification exits</p></li>
+</ul>
+<p><strong>Memory Management</strong></p>
+<ul class="simple">
+<li><p>Stateless crew instances</p></li>
+<li><p>Efficient flow state management</p></li>
+<li><p>Resource cleanup after processing</p></li>
+</ul>
+<p><strong>Scalability Features</strong></p>
+<ul class="simple">
+<li><p>Modular crew architecture</p></li>
+<li><p>Independent processing units</p></li>
+<li><p>Configurable concurrency options</p></li>
+</ul>
+</section>
+<section id="monitoring-observability">
+<h2>🔍 <strong>Monitoring &amp; Observability</strong><a class="headerlink" href="#monitoring-observability" title="Link to this heading"></a></h2>
+<p><strong>Logging Strategy</strong></p>
+<ul class="simple">
+<li><p>Flow step tracking</p></li>
+<li><p>Crew execution monitoring</p></li>
+<li><p>Error capture and reporting</p></li>
+</ul>
+<p><strong>Debugging Support</strong></p>
+<ul class="simple">
+<li><p>Verbose mode configuration</p></li>
+<li><p>Step-by-step execution tracing</p></li>
+<li><p>State inspection capabilities</p></li>
+</ul>
+<p><strong>Performance Metrics</strong></p>
+<ul class="simple">
+<li><p>Processing time measurement</p></li>
+<li><p>Success/failure rate tracking</p></li>
+<li><p>Resource utilization monitoring</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api_reference.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Bardini-Rremilli Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

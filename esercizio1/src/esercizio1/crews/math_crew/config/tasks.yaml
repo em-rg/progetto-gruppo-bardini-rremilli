@@ -1,0 +1,30 @@
+parse_math_expression:
+  description: >
+    Parse the mathematical expression: {math_expression}
+    
+    Identify all numerical values, mathematical operators, parentheses, and the structure
+    of the calculation. Ensure the expression is well-formed and ready for calculation.
+  expected_output: >
+    A clear breakdown of the mathematical expression showing identified numbers, operators,
+    and the structure of the calculation to be performed
+  agent: math_parser
+
+calculate_result:
+  description: >
+    Calculate the result of the parsed mathematical expression: {math_expression}
+    
+    Perform the calculation following proper order of operations (PEMDAS/BODMAS).
+    Show intermediate steps if the calculation is complex.
+  expected_output: >
+    The numerical result of the calculation, including any relevant intermediate steps
+  agent: math_calculator
+
+format_result:
+  description: >
+    Format and present the final result of the mathematical calculation
+    
+    Present the original expression, the calculation process, and the final answer
+    in a clear, professional format.
+  expected_output: >
+    A well-formatted presentation showing the original expression and the final numerical result
+  agent: result_formatter

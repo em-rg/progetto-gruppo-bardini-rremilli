@@ -1,0 +1,1892 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; CrewAI Multi-Process Router System 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbb40358" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbb40358" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="System Architecture" href="architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            CrewAI Multi-Process Router System
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#prerequisites">📋 <strong>Prerequisites</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#installation">🛠️ <strong>Installation</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-the-system">🚀 <strong>Running the System</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#first-steps">📝 <strong>First Steps</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#configuration">🔧 <strong>Configuration</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#example-workflows">🎯 <strong>Example Workflows</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#troubleshooting">🐛 <strong>Troubleshooting</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#next-steps">📚 <strong>Next Steps</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#tips">💡 <strong>Tips</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">System Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#high-level-architecture">🏗️ <strong>High-Level Architecture</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#core-components">🧩 <strong>Core Components</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#data-flow">🔄 <strong>Data Flow</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#design-patterns">🏛️ <strong>Design Patterns</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#configuration-architecture">🔧 <strong>Configuration Architecture</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#state-management">📊 <strong>State Management</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#security-architecture">🛡️ <strong>Security Architecture</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#performance-considerations">⚡ <strong>Performance Considerations</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#monitoring-observability">🔍 <strong>Monitoring &amp; Observability</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modules-overview">📚 <strong>Modules Overview</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-esercizio1.main">🎯 <strong>Main Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.main.MultiProcessState"><code class="docutils literal notranslate"><span class="pre">MultiProcessState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.main.MultiProcessState.user_input"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.main.MultiProcessState.routing_info"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.main.MultiProcessState.result"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.main.MultiProcessState.sentence_count"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.main.MultiProcessState.model_config"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.main.MultiProcessFlow"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.main.MultiProcessFlow.get_user_input"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.get_user_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.main.MultiProcessFlow.route_input"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.route_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.main.MultiProcessFlow.process_request"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.process_request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.main.MultiProcessFlow.save_result"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.save_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.main.kickoff"><code class="docutils literal notranslate"><span class="pre">kickoff()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.main.plot"><code class="docutils literal notranslate"><span class="pre">plot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.main.demo_routing"><code class="docutils literal notranslate"><span class="pre">demo_routing()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">MultiProcessState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.user_input</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.routing_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.sentence_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13"><code class="docutils literal notranslate"><span class="pre">MultiProcessState.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id14"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id15"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.get_user_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.route_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.process_request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18"><code class="docutils literal notranslate"><span class="pre">MultiProcessFlow.save_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id19"><code class="docutils literal notranslate"><span class="pre">kickoff()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20"><code class="docutils literal notranslate"><span class="pre">plot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21"><code class="docutils literal notranslate"><span class="pre">demo_routing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-esercizio1.routers.main_router">🧭 <strong>Router Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.routers.main_router.MainRouter"><code class="docutils literal notranslate"><span class="pre">MainRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.routers.main_router.MainRouter.input_classifier_agent"><code class="docutils literal notranslate"><span class="pre">MainRouter.input_classifier_agent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.routers.main_router.MainRouter.__init__"><code class="docutils literal notranslate"><span class="pre">MainRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.routers.main_router.MainRouter.classify_input_task"><code class="docutils literal notranslate"><span class="pre">MainRouter.classify_input_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.routers.main_router.MainRouter.crew"><code class="docutils literal notranslate"><span class="pre">MainRouter.crew()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.routers.main_router.MathRouter"><code class="docutils literal notranslate"><span class="pre">MathRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.routers.main_router.MathRouter.number_patterns"><code class="docutils literal notranslate"><span class="pre">MathRouter.number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.routers.main_router.MathRouter.text_number_patterns"><code class="docutils literal notranslate"><span class="pre">MathRouter.text_number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.routers.main_router.MathRouter.__init__"><code class="docutils literal notranslate"><span class="pre">MathRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.routers.main_router.MathRouter.classify_math_input"><code class="docutils literal notranslate"><span class="pre">MathRouter.classify_math_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.routers.main_router.route_user_input"><code class="docutils literal notranslate"><span class="pre">route_user_input()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22"><code class="docutils literal notranslate"><span class="pre">MainRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id23"><code class="docutils literal notranslate"><span class="pre">MainRouter.input_classifier_agent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id24"><code class="docutils literal notranslate"><span class="pre">MainRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25"><code class="docutils literal notranslate"><span class="pre">MainRouter.classify_input_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id26"><code class="docutils literal notranslate"><span class="pre">MainRouter.crew()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id27"><code class="docutils literal notranslate"><span class="pre">MathRouter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id28"><code class="docutils literal notranslate"><span class="pre">MathRouter.number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id29"><code class="docutils literal notranslate"><span class="pre">MathRouter.text_number_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id30"><code class="docutils literal notranslate"><span class="pre">MathRouter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id31"><code class="docutils literal notranslate"><span class="pre">MathRouter.classify_math_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id32"><code class="docutils literal notranslate"><span class="pre">route_user_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-esercizio1.crews.rag_crew.rag_crew">🔍 <strong>RAG Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.crews.rag_crew.rag_crew.RagCrew"><code class="docutils literal notranslate"><span class="pre">RagCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-esercizio1.crews.math_crew.math_crew">🧮 <strong>Math Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.crews.math_crew.math_crew.MathCrew"><code class="docutils literal notranslate"><span class="pre">MathCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-esercizio1.crews.math_text_crew.math_text_crew">📝 <strong>Math Text Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.crews.math_text_crew.math_text_crew.MathTextCrew"><code class="docutils literal notranslate"><span class="pre">MathTextCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-esercizio1.crews.poem_crew.poem_crew">🎨 <strong>Poem Crew Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.crews.poem_crew.poem_crew.PoemCrew"><code class="docutils literal notranslate"><span class="pre">PoemCrew</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-esercizio1.tools.custom_tool">🛠️ <strong>Tools Module</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorToolInput"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorToolInput.expression"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id33"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorToolInput.model_config"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorTool"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorTool.name"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorTool.description"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorTool.args_schema"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorTool.model_config"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberToolInput"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberToolInput.text"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id36"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberToolInput.model_config"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberTool"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberTool.name"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberTool.description"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberTool.args_schema"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberTool.model_config"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomToolInput"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomToolInput.argument"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id37"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomToolInput.model_config"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomTool"><code class="docutils literal notranslate"><span class="pre">MyCustomTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomTool.name"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomTool.description"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomTool.args_schema"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomTool.model_config"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id38"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id41"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id42"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id43"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id44"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorTool.env_vars"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.env_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorTool.description_updated"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.description_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorTool.cache_function"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.cache_function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorTool.result_as_answer"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.result_as_answer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorTool.max_usage_count"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.max_usage_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MathCalculatorTool.current_usage_count"><code class="docutils literal notranslate"><span class="pre">MathCalculatorTool.current_usage_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id45"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id46"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id47"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id48"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id49"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberTool.env_vars"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.env_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberTool.description_updated"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.description_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberTool.cache_function"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.cache_function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberTool.result_as_answer"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.result_as_answer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberTool.max_usage_count"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.max_usage_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.TextToNumberTool.current_usage_count"><code class="docutils literal notranslate"><span class="pre">TextToNumberTool.current_usage_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id50"><code class="docutils literal notranslate"><span class="pre">MyCustomTool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id51"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id52"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id53"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.args_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id54"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomTool.env_vars"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.env_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomTool.description_updated"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.description_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomTool.cache_function"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.cache_function</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomTool.result_as_answer"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.result_as_answer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomTool.max_usage_count"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.max_usage_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esercizio1.tools.custom_tool.MyCustomTool.current_usage_count"><code class="docutils literal notranslate"><span class="pre">MyCustomTool.current_usage_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id55"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id56"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id57"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.expression</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id58"><code class="docutils literal notranslate"><span class="pre">MathCalculatorToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id59"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id60"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id61"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id62"><code class="docutils literal notranslate"><span class="pre">TextToNumberToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id63"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id64"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id65"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.argument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id66"><code class="docutils literal notranslate"><span class="pre">MyCustomToolInput.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#type-definitions">📋 <strong>Type Definitions</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-schemas">🔧 <strong>Configuration Schemas</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-examples">🚀 <strong>Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#error-handling">⚠️ <strong>Error Handling</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security-considerations">🔒 <strong>Security Considerations</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-notes">📈 <strong>Performance Notes</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#basic-usage-examples">🎯 <strong>Basic Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#tool-usage-examples">🛠️ <strong>Tool Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#advanced-usage-examples">🎭 <strong>Advanced Usage Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#integration-examples">🔧 <strong>Integration Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#performance-examples">📊 <strong>Performance Examples</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#creative-examples">🎨 <strong>Creative Examples</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-1-creating-a-custom-crew">🎯 <strong>Tutorial 1: Creating a Custom Crew</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-2-building-custom-tools">🛠️ <strong>Tutorial 2: Building Custom Tools</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-3-advanced-flow-customization">🔧 <strong>Tutorial 3: Advanced Flow Customization</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-4-creating-interactive-applications">🎨 <strong>Tutorial 4: Creating Interactive Applications</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#development-setup">🛠️ <strong>Development Setup</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#project-structure">📁 <strong>Project Structure</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#testing">🧪 <strong>Testing</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#documentation">📚 <strong>Documentation</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#extending-the-system">🔧 <strong>Extending the System</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#code-style-guidelines">🎨 <strong>Code Style Guidelines</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#performance-guidelines">🚀 <strong>Performance Guidelines</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#security-best-practices">🔒 <strong>Security Best Practices</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#release-process">📋 <strong>Release Process</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributing">🤝 <strong>Contributing</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#support-and-community">📞 <strong>Support and Community</strong></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CrewAI Multi-Process Router System</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api_reference.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
+<p>This section provides detailed API documentation for all modules, classes, and functions in the CrewAI Multi-Process Router System.</p>
+<section id="modules-overview">
+<h2>📚 <strong>Modules Overview</strong><a class="headerlink" href="#modules-overview" title="Link to this heading"></a></h2>
+</section>
+<section id="module-esercizio1.main">
+<span id="main-module"></span><h2>🎯 <strong>Main Module</strong><a class="headerlink" href="#module-esercizio1.main" title="Link to this heading"></a></h2>
+<p>Main module for the CrewAI Multi-Process Router System.</p>
+<p>This module implements a sophisticated routing system that automatically classifies
+user input and routes it to appropriate specialized crews for processing different
+types of tasks: information retrieval (RAG), mathematical operations, and creative writing.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="esercizio1.main.MultiProcessState">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.main.</span></span><span class="sig-name descname"><span class="pre">MultiProcessState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">routing_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sentence_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#MultiProcessState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.main.MultiProcessState" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>State model for the multi-process flow.</p>
+<p>This class defines the state variables that are shared across all steps
+of the flow execution, tracking user input, routing decisions, and results.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.main.MultiProcessState.user_input">
+<span class="sig-name descname"><span class="pre">user_input</span></span><a class="headerlink" href="#esercizio1.main.MultiProcessState.user_input" title="Link to this definition"></a></dt>
+<dd><p>The original user input string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.main.MultiProcessState.routing_info">
+<span class="sig-name descname"><span class="pre">routing_info</span></span><a class="headerlink" href="#esercizio1.main.MultiProcessState.routing_info" title="Link to this definition"></a></dt>
+<dd><p>Information about routing decisions including
+crew type and sub-categories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.main.MultiProcessState.result">
+<span class="sig-name descname"><span class="pre">result</span></span><a class="headerlink" href="#esercizio1.main.MultiProcessState.result" title="Link to this definition"></a></dt>
+<dd><p>The final processed result from the selected crew.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.main.MultiProcessState.sentence_count">
+<span class="sig-name descname"><span class="pre">sentence_count</span></span><a class="headerlink" href="#esercizio1.main.MultiProcessState.sentence_count" title="Link to this definition"></a></dt>
+<dd><p>Number of sentences for poem generation (used by poem crew).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">user_input</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">routing_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">result</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">sentence_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.main.MultiProcessState.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#esercizio1.main.MultiProcessState.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="esercizio1.main.MultiProcessFlow">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.main.</span></span><span class="sig-name descname"><span class="pre">MultiProcessFlow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">persistence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FlowPersistence</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#MultiProcessFlow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.main.MultiProcessFlow" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FlowGeneric</span></code></p>
+<p>Main flow orchestrator for the multi-process routing system.</p>
+<p>This class implements a CrewAI Flow that manages the entire process from
+user input collection through routing, processing, and result saving.
+It coordinates between different specialized crews based on input classification.</p>
+<p>The flow consists of four main steps:
+1. Get user input
+2. Route input to appropriate crew
+3. Process request with selected crew
+4. Save the result to file</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="esercizio1.main.MultiProcessFlow.get_user_input">
+<span class="sig-name descname"><span class="pre">get_user_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#MultiProcessFlow.get_user_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.main.MultiProcessFlow.get_user_input" title="Link to this definition"></a></dt>
+<dd><p>Get user input and initialize the flow state.</p>
+<p>This is the starting point of the flow. It prompts the user for input
+with a default fallback and stores the input in the flow state.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In a production application, this would typically receive input
+from a user interface rather than command line input.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esercizio1.main.MultiProcessFlow.route_input">
+<span class="sig-name descname"><span class="pre">route_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#MultiProcessFlow.route_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.main.MultiProcessFlow.route_input" title="Link to this definition"></a></dt>
+<dd><p>Route user input to the appropriate crew based on content analysis.</p>
+<p>Uses the main router to classify the user input and determine which
+specialized crew should handle the request. The routing decision is
+stored in the flow state for use in subsequent steps.</p>
+<p>The router can classify input into:
+- RAG: Information retrieval queries
+- MATH: Mathematical calculations (with sub-routing for numeric/textual)
+- POEM: Creative writing requests</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esercizio1.main.MultiProcessFlow.process_request">
+<span class="sig-name descname"><span class="pre">process_request</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#MultiProcessFlow.process_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.main.MultiProcessFlow.process_request" title="Link to this definition"></a></dt>
+<dd><p>Process the user request using the appropriate specialized crew.</p>
+<p>Based on the routing decision, this method instantiates and executes
+the appropriate crew to handle the user’s request. Each crew type
+requires different input parameters and handles different types of tasks.</p>
+<p>Crew Types:
+- rag_crew: Handles information retrieval and knowledge queries
+- math_crew: Processes numerical mathematical expressions
+- math_text_crew: Handles mathematical expressions with textual numbers
+- poem_crew: Creates creative content like poems and stories</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – If crew execution fails, falls back to poem crew.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esercizio1.main.MultiProcessFlow.save_result">
+<span class="sig-name descname"><span class="pre">save_result</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#MultiProcessFlow.save_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.main.MultiProcessFlow.save_result" title="Link to this definition"></a></dt>
+<dd><p>Save the processing result to a file.</p>
+<p>Creates a text file containing the user input, routing information,
+and the final result. The filename is based on the crew type that
+processed the request.</p>
+<p>File format includes:
+- Original user input
+- Crew type used
+- Complete routing information
+- Final processed result</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="esercizio1.main.kickoff">
+<span class="sig-prename descclassname"><span class="pre">esercizio1.main.</span></span><span class="sig-name descname"><span class="pre">kickoff</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#kickoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.main.kickoff" title="Link to this definition"></a></dt>
+<dd><p>Main entry point for the multi-process flow application.</p>
+<p>Initializes and executes the MultiProcessFlow, which handles the complete
+workflow from user input to result processing and saving.</p>
+<p>This function is the primary way to run the application and is configured
+as a console script entry point in pyproject.toml.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="esercizio1.main.plot">
+<span class="sig-prename descclassname"><span class="pre">esercizio1.main.</span></span><span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.main.plot" title="Link to this definition"></a></dt>
+<dd><p>Generate and display a visual diagram of the flow structure.</p>
+<p>Creates a visual representation of the MultiProcessFlow showing the
+sequence of steps and their dependencies. Useful for understanding
+the flow architecture and debugging.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Requires appropriate plotting dependencies to be installed.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="esercizio1.main.demo_routing">
+<span class="sig-prename descclassname"><span class="pre">esercizio1.main.</span></span><span class="sig-name descname"><span class="pre">demo_routing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#demo_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.main.demo_routing" title="Link to this definition"></a></dt>
+<dd><p>Demonstrate the routing system with predefined test inputs.</p>
+<p>Runs a series of test cases through the routing system to show how
+different types of user input are classified and routed to appropriate
+crews. This is useful for testing and demonstrating the system capabilities.</p>
+<p>Test cases include:
+- Information retrieval queries (routed to RAG crew)
+- Numerical mathematical expressions (routed to Math crew)
+- Textual mathematical expressions (routed to Math Text crew)
+- Creative writing requests (routed to Poem crew)</p>
+</dd></dl>
+
+<p><strong>Classes</strong></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="id4">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.main.</span></span><span class="sig-name descname"><span class="pre">MultiProcessState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">routing_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sentence_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#MultiProcessState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>State model for the multi-process flow.</p>
+<p>This class defines the state variables that are shared across all steps
+of the flow execution, tracking user input, routing decisions, and results.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">user_input</span></span><a class="headerlink" href="#id5" title="Link to this definition"></a></dt>
+<dd><p>The original user input string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">routing_info</span></span><a class="headerlink" href="#id6" title="Link to this definition"></a></dt>
+<dd><p>Information about routing decisions including
+crew type and sub-categories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">result</span></span><a class="headerlink" href="#id7" title="Link to this definition"></a></dt>
+<dd><p>The final processed result from the selected crew.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">sentence_count</span></span><a class="headerlink" href="#id8" title="Link to this definition"></a></dt>
+<dd><p>Number of sentences for poem generation (used by poem crew).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">user_input</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id9" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">routing_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id10" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id11">
+<span class="sig-name descname"><span class="pre">result</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id11" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id12">
+<span class="sig-name descname"><span class="pre">sentence_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id12" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id13">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#id13" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id14">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.main.</span></span><span class="sig-name descname"><span class="pre">MultiProcessFlow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">persistence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FlowPersistence</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#MultiProcessFlow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id14" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FlowGeneric</span></code></p>
+<p>Main flow orchestrator for the multi-process routing system.</p>
+<p>This class implements a CrewAI Flow that manages the entire process from
+user input collection through routing, processing, and result saving.
+It coordinates between different specialized crews based on input classification.</p>
+<p>The flow consists of four main steps:
+1. Get user input
+2. Route input to appropriate crew
+3. Process request with selected crew
+4. Save the result to file</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="id15">
+<span class="sig-name descname"><span class="pre">get_user_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#MultiProcessFlow.get_user_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id15" title="Link to this definition"></a></dt>
+<dd><p>Get user input and initialize the flow state.</p>
+<p>This is the starting point of the flow. It prompts the user for input
+with a default fallback and stores the input in the flow state.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In a production application, this would typically receive input
+from a user interface rather than command line input.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id16">
+<span class="sig-name descname"><span class="pre">route_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#MultiProcessFlow.route_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id16" title="Link to this definition"></a></dt>
+<dd><p>Route user input to the appropriate crew based on content analysis.</p>
+<p>Uses the main router to classify the user input and determine which
+specialized crew should handle the request. The routing decision is
+stored in the flow state for use in subsequent steps.</p>
+<p>The router can classify input into:
+- RAG: Information retrieval queries
+- MATH: Mathematical calculations (with sub-routing for numeric/textual)
+- POEM: Creative writing requests</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id17">
+<span class="sig-name descname"><span class="pre">process_request</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#MultiProcessFlow.process_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id17" title="Link to this definition"></a></dt>
+<dd><p>Process the user request using the appropriate specialized crew.</p>
+<p>Based on the routing decision, this method instantiates and executes
+the appropriate crew to handle the user’s request. Each crew type
+requires different input parameters and handles different types of tasks.</p>
+<p>Crew Types:
+- rag_crew: Handles information retrieval and knowledge queries
+- math_crew: Processes numerical mathematical expressions
+- math_text_crew: Handles mathematical expressions with textual numbers
+- poem_crew: Creates creative content like poems and stories</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – If crew execution fails, falls back to poem crew.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id18">
+<span class="sig-name descname"><span class="pre">save_result</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#MultiProcessFlow.save_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id18" title="Link to this definition"></a></dt>
+<dd><p>Save the processing result to a file.</p>
+<p>Creates a text file containing the user input, routing information,
+and the final result. The filename is based on the crew type that
+processed the request.</p>
+<p>File format includes:
+- Original user input
+- Crew type used
+- Complete routing information
+- Final processed result</p>
+</dd></dl>
+
+</dd></dl>
+
+<p><strong>Functions</strong></p>
+<dl class="py function">
+<dt class="sig sig-object py" id="id19">
+<span class="sig-prename descclassname"><span class="pre">esercizio1.main.</span></span><span class="sig-name descname"><span class="pre">kickoff</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#kickoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id19" title="Link to this definition"></a></dt>
+<dd><p>Main entry point for the multi-process flow application.</p>
+<p>Initializes and executes the MultiProcessFlow, which handles the complete
+workflow from user input to result processing and saving.</p>
+<p>This function is the primary way to run the application and is configured
+as a console script entry point in pyproject.toml.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id20">
+<span class="sig-prename descclassname"><span class="pre">esercizio1.main.</span></span><span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id20" title="Link to this definition"></a></dt>
+<dd><p>Generate and display a visual diagram of the flow structure.</p>
+<p>Creates a visual representation of the MultiProcessFlow showing the
+sequence of steps and their dependencies. Useful for understanding
+the flow architecture and debugging.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Requires appropriate plotting dependencies to be installed.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id21">
+<span class="sig-prename descclassname"><span class="pre">esercizio1.main.</span></span><span class="sig-name descname"><span class="pre">demo_routing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/main.html#demo_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id21" title="Link to this definition"></a></dt>
+<dd><p>Demonstrate the routing system with predefined test inputs.</p>
+<p>Runs a series of test cases through the routing system to show how
+different types of user input are classified and routed to appropriate
+crews. This is useful for testing and demonstrating the system capabilities.</p>
+<p>Test cases include:
+- Information retrieval queries (routed to RAG crew)
+- Numerical mathematical expressions (routed to Math crew)
+- Textual mathematical expressions (routed to Math Text crew)
+- Creative writing requests (routed to Poem crew)</p>
+</dd></dl>
+
+</section>
+<section id="module-esercizio1.routers.main_router">
+<span id="router-module"></span><h2>🧭 <strong>Router Module</strong><a class="headerlink" href="#module-esercizio1.routers.main_router" title="Link to this heading"></a></h2>
+<p>Main router module for the CrewAI Multi-Process Router System.</p>
+<p>This module implements intelligent routing functionality that classifies user input
+and routes it to appropriate specialized crews. It includes both AI-based classification
+for general intent and rule-based classification for mathematical expressions.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="esercizio1.routers.main_router.MainRouter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.routers.main_router.</span></span><span class="sig-name descname"><span class="pre">MainRouter</span></span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MainRouter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.routers.main_router.MainRouter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Main router crew that classifies user input using AI agents.</p>
+<p>This class uses a specialized AI agent to analyze user input and classify it
+into one of three main categories: RAG (information retrieval), MATH
+(mathematical operations), or POEM (creative writing).</p>
+<p>The classification is performed by an expert agent that understands user
+intent and can distinguish between different types of requests.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.routers.main_router.MainRouter.input_classifier_agent">
+<span class="sig-name descname"><span class="pre">input_classifier_agent</span></span><a class="headerlink" href="#esercizio1.routers.main_router.MainRouter.input_classifier_agent" title="Link to this definition"></a></dt>
+<dd><p>AI agent specialized in input classification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Agent</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esercizio1.routers.main_router.MainRouter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MainRouter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.routers.main_router.MainRouter.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the MainRouter with a specialized classification agent.</p>
+<p>Creates an AI agent that is expert at understanding user intent and
+classifying requests into appropriate categories.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esercizio1.routers.main_router.MainRouter.classify_input_task">
+<span class="sig-name descname"><span class="pre">classify_input_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Task</span></span></span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MainRouter.classify_input_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.routers.main_router.MainRouter.classify_input_task" title="Link to this definition"></a></dt>
+<dd><p>Create a classification task for the given user input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_input</strong> (<em>str</em>) – The user’s input string to classify.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A CrewAI task configured to classify the input into RAG, MATH, or POEM.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Task</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esercizio1.routers.main_router.MainRouter.crew">
+<span class="sig-name descname"><span class="pre">crew</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Crew</span></span></span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MainRouter.crew"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.routers.main_router.MainRouter.crew" title="Link to this definition"></a></dt>
+<dd><p>Create a crew to perform input classification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_input</strong> (<em>str</em>) – The user’s input string to classify.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A CrewAI crew configured to classify the input.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Crew</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="esercizio1.routers.main_router.MathRouter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.routers.main_router.</span></span><span class="sig-name descname"><span class="pre">MathRouter</span></span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MathRouter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.routers.main_router.MathRouter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Router to determine if mathematical input contains numerical digits or textual numbers.</p>
+<p>This class implements rule-based classification for mathematical expressions,
+determining whether numbers are represented as digits (e.g., “15 + 27”) or
+as words (e.g., “fifteen plus twenty-seven”). It supports both English and
+Italian number words.</p>
+<p>The classification is based on pattern matching using regular expressions
+to detect different number representations in the input text.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.routers.main_router.MathRouter.number_patterns">
+<span class="sig-name descname"><span class="pre">number_patterns</span></span><a class="headerlink" href="#esercizio1.routers.main_router.MathRouter.number_patterns" title="Link to this definition"></a></dt>
+<dd><p>Regex patterns for detecting numerical digits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.routers.main_router.MathRouter.text_number_patterns">
+<span class="sig-name descname"><span class="pre">text_number_patterns</span></span><a class="headerlink" href="#esercizio1.routers.main_router.MathRouter.text_number_patterns" title="Link to this definition"></a></dt>
+<dd><p>Regex patterns for detecting textual numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esercizio1.routers.main_router.MathRouter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MathRouter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.routers.main_router.MathRouter.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the MathRouter with pattern definitions for number detection.</p>
+<p>Sets up regex patterns for identifying both numerical digits and textual
+number representations in multiple languages (English and Italian).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="esercizio1.routers.main_router.MathRouter.classify_math_input">
+<span class="sig-name descname"><span class="pre">classify_math_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MathRouter.classify_math_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.routers.main_router.MathRouter.classify_math_input" title="Link to this definition"></a></dt>
+<dd><p>Classify mathematical input as either ‘NUMERIC’ or ‘TEXTUAL’ based on number representation.</p>
+<p>Analyzes the input to determine whether numbers are represented as digits
+or as words. Uses pattern matching to identify different number formats
+and applies precedence rules when both types are present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_input</strong> (<em>str</em>) – The mathematical input to classify.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>‘NUMERIC’ if input contains numerical digits, ‘TEXTUAL’ if contains text numbers.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">math_router</span> <span class="o">=</span> <span class="n">MathRouter</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">math_router</span><span class="o">.</span><span class="n">classify_math_input</span><span class="p">(</span><span class="s2">&quot;15 + 27&quot;</span><span class="p">)</span>
+<span class="go">&#39;NUMERIC&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">math_router</span><span class="o">.</span><span class="n">classify_math_input</span><span class="p">(</span><span class="s2">&quot;fifteen plus twenty-seven&quot;</span><span class="p">)</span>
+<span class="go">&#39;TEXTUAL&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="esercizio1.routers.main_router.route_user_input">
+<span class="sig-prename descclassname"><span class="pre">esercizio1.routers.main_router.</span></span><span class="sig-name descname"><span class="pre">route_user_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#route_user_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.routers.main_router.route_user_input" title="Link to this definition"></a></dt>
+<dd><p>Main routing function that determines which crew to use based on user input.</p>
+<p>This function orchestrates the complete routing process by first classifying
+the general intent of the user input, then applying additional sub-classification
+for mathematical expressions to determine the most appropriate crew.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_input</strong> (<em>str</em>) – The user’s input string to route.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Dictionary containing routing information with keys:</dt><dd><ul class="simple">
+<li><p>user_input: Original input string</p></li>
+<li><p>main_category: Primary classification (RAG, MATH, POEM)</p></li>
+<li><p>crew_type: Specific crew to handle the request</p></li>
+<li><p>sub_category: Additional classification for math inputs (NUMERIC/TEXTUAL)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">route_user_input</span><span class="p">(</span><span class="s2">&quot;What is AI?&quot;</span><span class="p">)</span>
+<span class="go">{&#39;user_input&#39;: &#39;What is AI?&#39;, &#39;main_category&#39;: &#39;RAG&#39;, &#39;crew_type&#39;: &#39;rag_crew&#39;, &#39;sub_category&#39;: None}</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">route_user_input</span><span class="p">(</span><span class="s2">&quot;Calculate 15 + 27&quot;</span><span class="p">)</span>
+<span class="go">{&#39;user_input&#39;: &#39;Calculate 15 + 27&#39;, &#39;main_category&#39;: &#39;MATH&#39;, &#39;crew_type&#39;: &#39;math_crew&#39;, &#39;sub_category&#39;: &#39;NUMERIC&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p><strong>Classes</strong></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="id22">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.routers.main_router.</span></span><span class="sig-name descname"><span class="pre">MainRouter</span></span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MainRouter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id22" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Main router crew that classifies user input using AI agents.</p>
+<p>This class uses a specialized AI agent to analyze user input and classify it
+into one of three main categories: RAG (information retrieval), MATH
+(mathematical operations), or POEM (creative writing).</p>
+<p>The classification is performed by an expert agent that understands user
+intent and can distinguish between different types of requests.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id23">
+<span class="sig-name descname"><span class="pre">input_classifier_agent</span></span><a class="headerlink" href="#id23" title="Link to this definition"></a></dt>
+<dd><p>AI agent specialized in input classification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Agent</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id24">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MainRouter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id24" title="Link to this definition"></a></dt>
+<dd><p>Initialize the MainRouter with a specialized classification agent.</p>
+<p>Creates an AI agent that is expert at understanding user intent and
+classifying requests into appropriate categories.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id25">
+<span class="sig-name descname"><span class="pre">classify_input_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Task</span></span></span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MainRouter.classify_input_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id25" title="Link to this definition"></a></dt>
+<dd><p>Create a classification task for the given user input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_input</strong> (<em>str</em>) – The user’s input string to classify.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A CrewAI task configured to classify the input into RAG, MATH, or POEM.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Task</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id26">
+<span class="sig-name descname"><span class="pre">crew</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Crew</span></span></span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MainRouter.crew"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id26" title="Link to this definition"></a></dt>
+<dd><p>Create a crew to perform input classification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_input</strong> (<em>str</em>) – The user’s input string to classify.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A CrewAI crew configured to classify the input.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Crew</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id27">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.routers.main_router.</span></span><span class="sig-name descname"><span class="pre">MathRouter</span></span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MathRouter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id27" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Router to determine if mathematical input contains numerical digits or textual numbers.</p>
+<p>This class implements rule-based classification for mathematical expressions,
+determining whether numbers are represented as digits (e.g., “15 + 27”) or
+as words (e.g., “fifteen plus twenty-seven”). It supports both English and
+Italian number words.</p>
+<p>The classification is based on pattern matching using regular expressions
+to detect different number representations in the input text.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id28">
+<span class="sig-name descname"><span class="pre">number_patterns</span></span><a class="headerlink" href="#id28" title="Link to this definition"></a></dt>
+<dd><p>Regex patterns for detecting numerical digits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id29">
+<span class="sig-name descname"><span class="pre">text_number_patterns</span></span><a class="headerlink" href="#id29" title="Link to this definition"></a></dt>
+<dd><p>Regex patterns for detecting textual numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id30">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MathRouter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id30" title="Link to this definition"></a></dt>
+<dd><p>Initialize the MathRouter with pattern definitions for number detection.</p>
+<p>Sets up regex patterns for identifying both numerical digits and textual
+number representations in multiple languages (English and Italian).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id31">
+<span class="sig-name descname"><span class="pre">classify_math_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#MathRouter.classify_math_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id31" title="Link to this definition"></a></dt>
+<dd><p>Classify mathematical input as either ‘NUMERIC’ or ‘TEXTUAL’ based on number representation.</p>
+<p>Analyzes the input to determine whether numbers are represented as digits
+or as words. Uses pattern matching to identify different number formats
+and applies precedence rules when both types are present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_input</strong> (<em>str</em>) – The mathematical input to classify.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>‘NUMERIC’ if input contains numerical digits, ‘TEXTUAL’ if contains text numbers.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">math_router</span> <span class="o">=</span> <span class="n">MathRouter</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">math_router</span><span class="o">.</span><span class="n">classify_math_input</span><span class="p">(</span><span class="s2">&quot;15 + 27&quot;</span><span class="p">)</span>
+<span class="go">&#39;NUMERIC&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">math_router</span><span class="o">.</span><span class="n">classify_math_input</span><span class="p">(</span><span class="s2">&quot;fifteen plus twenty-seven&quot;</span><span class="p">)</span>
+<span class="go">&#39;TEXTUAL&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<p><strong>Functions</strong></p>
+<dl class="py function">
+<dt class="sig sig-object py" id="id32">
+<span class="sig-prename descclassname"><span class="pre">esercizio1.routers.main_router.</span></span><span class="sig-name descname"><span class="pre">route_user_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/esercizio1/routers/main_router.html#route_user_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id32" title="Link to this definition"></a></dt>
+<dd><p>Main routing function that determines which crew to use based on user input.</p>
+<p>This function orchestrates the complete routing process by first classifying
+the general intent of the user input, then applying additional sub-classification
+for mathematical expressions to determine the most appropriate crew.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_input</strong> (<em>str</em>) – The user’s input string to route.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Dictionary containing routing information with keys:</dt><dd><ul class="simple">
+<li><p>user_input: Original input string</p></li>
+<li><p>main_category: Primary classification (RAG, MATH, POEM)</p></li>
+<li><p>crew_type: Specific crew to handle the request</p></li>
+<li><p>sub_category: Additional classification for math inputs (NUMERIC/TEXTUAL)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">route_user_input</span><span class="p">(</span><span class="s2">&quot;What is AI?&quot;</span><span class="p">)</span>
+<span class="go">{&#39;user_input&#39;: &#39;What is AI?&#39;, &#39;main_category&#39;: &#39;RAG&#39;, &#39;crew_type&#39;: &#39;rag_crew&#39;, &#39;sub_category&#39;: None}</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">route_user_input</span><span class="p">(</span><span class="s2">&quot;Calculate 15 + 27&quot;</span><span class="p">)</span>
+<span class="go">{&#39;user_input&#39;: &#39;Calculate 15 + 27&#39;, &#39;main_category&#39;: &#39;MATH&#39;, &#39;crew_type&#39;: &#39;math_crew&#39;, &#39;sub_category&#39;: &#39;NUMERIC&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-esercizio1.crews.rag_crew.rag_crew">
+<span id="rag-crew-module"></span><h2>🔍 <strong>RAG Crew Module</strong><a class="headerlink" href="#module-esercizio1.crews.rag_crew.rag_crew" title="Link to this heading"></a></h2>
+<p><strong>Classes</strong></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.crews.rag_crew.rag_crew.RagCrew">
+<span class="sig-prename descclassname"><span class="pre">esercizio1.crews.rag_crew.rag_crew.</span></span><span class="sig-name descname"><span class="pre">RagCrew</span></span><a class="headerlink" href="#esercizio1.crews.rag_crew.rag_crew.RagCrew" title="Link to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">CrewBase(RagCrew)</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-esercizio1.crews.math_crew.math_crew">
+<span id="math-crew-module"></span><h2>🧮 <strong>Math Crew Module</strong><a class="headerlink" href="#module-esercizio1.crews.math_crew.math_crew" title="Link to this heading"></a></h2>
+<p><strong>Classes</strong></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.crews.math_crew.math_crew.MathCrew">
+<span class="sig-prename descclassname"><span class="pre">esercizio1.crews.math_crew.math_crew.</span></span><span class="sig-name descname"><span class="pre">MathCrew</span></span><a class="headerlink" href="#esercizio1.crews.math_crew.math_crew.MathCrew" title="Link to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">CrewBase(MathCrew)</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-esercizio1.crews.math_text_crew.math_text_crew">
+<span id="math-text-crew-module"></span><h2>📝 <strong>Math Text Crew Module</strong><a class="headerlink" href="#module-esercizio1.crews.math_text_crew.math_text_crew" title="Link to this heading"></a></h2>
+<p><strong>Classes</strong></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.crews.math_text_crew.math_text_crew.MathTextCrew">
+<span class="sig-prename descclassname"><span class="pre">esercizio1.crews.math_text_crew.math_text_crew.</span></span><span class="sig-name descname"><span class="pre">MathTextCrew</span></span><a class="headerlink" href="#esercizio1.crews.math_text_crew.math_text_crew.MathTextCrew" title="Link to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">CrewBase(MathTextCrew)</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-esercizio1.crews.poem_crew.poem_crew">
+<span id="poem-crew-module"></span><h2>🎨 <strong>Poem Crew Module</strong><a class="headerlink" href="#module-esercizio1.crews.poem_crew.poem_crew" title="Link to this heading"></a></h2>
+<p><strong>Classes</strong></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.crews.poem_crew.poem_crew.PoemCrew">
+<span class="sig-prename descclassname"><span class="pre">esercizio1.crews.poem_crew.poem_crew.</span></span><span class="sig-name descname"><span class="pre">PoemCrew</span></span><a class="headerlink" href="#esercizio1.crews.poem_crew.poem_crew.PoemCrew" title="Link to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">CrewBase(PoemCrew)</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-esercizio1.tools.custom_tool">
+<span id="tools-module"></span><h2>🛠️ <strong>Tools Module</strong><a class="headerlink" href="#module-esercizio1.tools.custom_tool" title="Link to this heading"></a></h2>
+<p>Custom tools module for the CrewAI Multi-Process Router System.</p>
+<p>This module provides specialized tools for mathematical calculations and text processing.
+It includes safe mathematical evaluation, text-to-number conversion, and supports
+multiple languages for textual number representations.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorToolInput">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.tools.custom_tool.</span></span><span class="sig-name descname"><span class="pre">MathCalculatorToolInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">expression</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/tools/custom_tool.html#MathCalculatorToolInput"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorToolInput" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Input schema for MathCalculatorTool.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorToolInput.expression">
+<span class="sig-name descname"><span class="pre">expression</span></span><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorToolInput.expression" title="Link to this definition"></a></dt>
+<dd><p>Mathematical expression to calculate (e.g., ‘2 + 3 * 4’).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id33">
+<span class="sig-name descname"><span class="pre">expression</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id33" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorToolInput.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorToolInput.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorTool">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.tools.custom_tool.</span></span><span class="sig-name descname"><span class="pre">MathCalculatorTool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Math</span> <span class="pre">Calculator'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Safely</span> <span class="pre">evaluates</span> <span class="pre">mathematical</span> <span class="pre">expressions</span> <span class="pre">with</span> <span class="pre">basic</span> <span class="pre">arithmetic</span> <span class="pre">operations.</span> <span class="pre">Supports</span> <span class="pre">+</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">-</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">^</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">and</span> <span class="pre">parentheses.</span> <span class="pre">Ensures</span> <span class="pre">safe</span> <span class="pre">calculation</span> <span class="pre">without</span> <span class="pre">code</span> <span class="pre">execution.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_vars:</span> <span class="pre">~typing.List[~crewai.tools.base_tool.EnvVar]</span> <span class="pre">=</span> <span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_schema:</span> <span class="pre">~typing.Type[~pydantic.main.BaseModel]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'esercizio1.tools.custom_tool.MathCalculatorToolInput'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description_updated:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_function:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">BaseTool.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_as_answer:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_usage_count:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_usage_count:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/tools/custom_tool.html#MathCalculatorTool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorTool" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseTool</span></code></p>
+<p>Safe mathematical expression calculator tool.</p>
+<p>This tool provides secure evaluation of mathematical expressions without the
+risks of code injection. It supports basic arithmetic operations, parentheses,
+and power operations while ensuring input validation and safe execution.</p>
+<dl class="simple">
+<dt>Supported Operations:</dt><dd><ul class="simple">
+<li><p>Addition (+)</p></li>
+<li><p>Subtraction (-)</p></li>
+<li><p>Multiplication (*)</p></li>
+<li><p>Division (/)</p></li>
+<li><p>Power (^ or <a href="#id34"><span class="problematic" id="id35">**</span></a>)</p></li>
+<li><p>Parentheses for grouping</p></li>
+</ul>
+</dd>
+<dt>Safety Features:</dt><dd><ul class="simple">
+<li><p>Input validation using regex patterns</p></li>
+<li><p>Prevention of code injection attacks</p></li>
+<li><p>Error handling for invalid expressions</p></li>
+<li><p>Division by zero protection</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorTool.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorTool.name" title="Link to this definition"></a></dt>
+<dd><p>The unique name of the tool that clearly communicates its purpose.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorTool.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorTool.description" title="Link to this definition"></a></dt>
+<dd><p>Used to tell the model how/when/why to use the tool.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorTool.args_schema">
+<span class="sig-name descname"><span class="pre">args_schema</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseModel</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorTool.args_schema" title="Link to this definition"></a></dt>
+<dd><p>The schema for the arguments that the tool accepts.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorTool.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True}</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorTool.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberToolInput">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.tools.custom_tool.</span></span><span class="sig-name descname"><span class="pre">TextToNumberToolInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/tools/custom_tool.html#TextToNumberToolInput"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberToolInput" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Input schema for TextToNumberTool.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberToolInput.text">
+<span class="sig-name descname"><span class="pre">text</span></span><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberToolInput.text" title="Link to this definition"></a></dt>
+<dd><p>Text containing numbers written as words to be converted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id36">
+<span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id36" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberToolInput.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberToolInput.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberTool">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.tools.custom_tool.</span></span><span class="sig-name descname"><span class="pre">TextToNumberTool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Text</span> <span class="pre">to</span> <span class="pre">Number</span> <span class="pre">Converter'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Converts</span> <span class="pre">textual</span> <span class="pre">numbers</span> <span class="pre">(written</span> <span class="pre">as</span> <span class="pre">words)</span> <span class="pre">to</span> <span class="pre">numerical</span> <span class="pre">digits.</span> <span class="pre">Supports</span> <span class="pre">English</span> <span class="pre">and</span> <span class="pre">Italian</span> <span class="pre">number</span> <span class="pre">words.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_vars:</span> <span class="pre">~typing.List[~crewai.tools.base_tool.EnvVar]</span> <span class="pre">=</span> <span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_schema:</span> <span class="pre">~typing.Type[~pydantic.main.BaseModel]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'esercizio1.tools.custom_tool.TextToNumberToolInput'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description_updated:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_function:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">BaseTool.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_as_answer:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_usage_count:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_usage_count:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/tools/custom_tool.html#TextToNumberTool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberTool" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseTool</span></code></p>
+<p>Text-to-number conversion tool for multilingual support.</p>
+<p>This tool converts textual number representations (written as words) to
+numerical digits. It supports both English and Italian number words and
+can handle complex expressions containing mixed text and mathematical operators.</p>
+<dl class="simple">
+<dt>Supported Languages:</dt><dd><ul class="simple">
+<li><p>English: “one”, “two”, “three”, “twenty”, “hundred”, etc.</p></li>
+<li><p>Italian: “uno”, “due”, “tre”, “venti”, “cento”, etc.</p></li>
+</ul>
+</dd>
+<dt>Features:</dt><dd><ul class="simple">
+<li><p>Comprehensive number word dictionary</p></li>
+<li><p>Multi-language support</p></li>
+<li><p>Preserves non-number words in text</p></li>
+<li><p>Error handling for conversion failures</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberTool.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberTool.name" title="Link to this definition"></a></dt>
+<dd><p>The unique name of the tool that clearly communicates its purpose.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberTool.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberTool.description" title="Link to this definition"></a></dt>
+<dd><p>Used to tell the model how/when/why to use the tool.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberTool.args_schema">
+<span class="sig-name descname"><span class="pre">args_schema</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseModel</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberTool.args_schema" title="Link to this definition"></a></dt>
+<dd><p>The schema for the arguments that the tool accepts.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberTool.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True}</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberTool.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomToolInput">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.tools.custom_tool.</span></span><span class="sig-name descname"><span class="pre">MyCustomToolInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/tools/custom_tool.html#MyCustomToolInput"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomToolInput" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Input schema for MyCustomTool (template/example tool).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomToolInput.argument">
+<span class="sig-name descname"><span class="pre">argument</span></span><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomToolInput.argument" title="Link to this definition"></a></dt>
+<dd><p>Generic argument for demonstration purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id37">
+<span class="sig-name descname"><span class="pre">argument</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id37" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomToolInput.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomToolInput.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomTool">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.tools.custom_tool.</span></span><span class="sig-name descname"><span class="pre">MyCustomTool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Name</span> <span class="pre">of</span> <span class="pre">my</span> <span class="pre">tool'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Clear</span> <span class="pre">description</span> <span class="pre">for</span> <span class="pre">what</span> <span class="pre">this</span> <span class="pre">tool</span> <span class="pre">is</span> <span class="pre">useful</span> <span class="pre">for</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">your</span> <span class="pre">agent</span> <span class="pre">will</span> <span class="pre">need</span> <span class="pre">this</span> <span class="pre">information</span> <span class="pre">to</span> <span class="pre">use</span> <span class="pre">it.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_vars:</span> <span class="pre">~typing.List[~crewai.tools.base_tool.EnvVar]</span> <span class="pre">=</span> <span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_schema:</span> <span class="pre">~typing.Type[~pydantic.main.BaseModel]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'esercizio1.tools.custom_tool.MyCustomToolInput'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description_updated:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_function:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">BaseTool.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_as_answer:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_usage_count:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_usage_count:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/tools/custom_tool.html#MyCustomTool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomTool" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseTool</span></code></p>
+<p>Template/example custom tool for demonstration purposes.</p>
+<p>This is a placeholder tool that serves as a template for creating
+new custom tools. It demonstrates the basic structure and interface
+required for CrewAI tools.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tool is included for reference and should be replaced or
+extended with actual functionality as needed.</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomTool.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomTool.name" title="Link to this definition"></a></dt>
+<dd><p>The unique name of the tool that clearly communicates its purpose.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomTool.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomTool.description" title="Link to this definition"></a></dt>
+<dd><p>Used to tell the model how/when/why to use the tool.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomTool.args_schema">
+<span class="sig-name descname"><span class="pre">args_schema</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseModel</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomTool.args_schema" title="Link to this definition"></a></dt>
+<dd><p>The schema for the arguments that the tool accepts.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomTool.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True}</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomTool.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<p><strong>Tool Classes</strong></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="id38">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.tools.custom_tool.</span></span><span class="sig-name descname"><span class="pre">MathCalculatorTool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Math</span> <span class="pre">Calculator'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Safely</span> <span class="pre">evaluates</span> <span class="pre">mathematical</span> <span class="pre">expressions</span> <span class="pre">with</span> <span class="pre">basic</span> <span class="pre">arithmetic</span> <span class="pre">operations.</span> <span class="pre">Supports</span> <span class="pre">+</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">-</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">^</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">and</span> <span class="pre">parentheses.</span> <span class="pre">Ensures</span> <span class="pre">safe</span> <span class="pre">calculation</span> <span class="pre">without</span> <span class="pre">code</span> <span class="pre">execution.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_vars:</span> <span class="pre">~typing.List[~crewai.tools.base_tool.EnvVar]</span> <span class="pre">=</span> <span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_schema:</span> <span class="pre">~typing.Type[~pydantic.main.BaseModel]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'esercizio1.tools.custom_tool.MathCalculatorToolInput'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description_updated:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_function:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">BaseTool.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_as_answer:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_usage_count:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_usage_count:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/tools/custom_tool.html#MathCalculatorTool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id38" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseTool</span></code></p>
+<p>Safe mathematical expression calculator tool.</p>
+<p>This tool provides secure evaluation of mathematical expressions without the
+risks of code injection. It supports basic arithmetic operations, parentheses,
+and power operations while ensuring input validation and safe execution.</p>
+<dl class="simple">
+<dt>Supported Operations:</dt><dd><ul class="simple">
+<li><p>Addition (+)</p></li>
+<li><p>Subtraction (-)</p></li>
+<li><p>Multiplication (*)</p></li>
+<li><p>Division (/)</p></li>
+<li><p>Power (^ or <a href="#id39"><span class="problematic" id="id40">**</span></a>)</p></li>
+<li><p>Parentheses for grouping</p></li>
+</ul>
+</dd>
+<dt>Safety Features:</dt><dd><ul class="simple">
+<li><p>Input validation using regex patterns</p></li>
+<li><p>Prevention of code injection attacks</p></li>
+<li><p>Error handling for invalid expressions</p></li>
+<li><p>Division by zero protection</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id41">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id41" title="Link to this definition"></a></dt>
+<dd><p>The unique name of the tool that clearly communicates its purpose.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id42">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id42" title="Link to this definition"></a></dt>
+<dd><p>Used to tell the model how/when/why to use the tool.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id43">
+<span class="sig-name descname"><span class="pre">args_schema</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseModel</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id43" title="Link to this definition"></a></dt>
+<dd><p>The schema for the arguments that the tool accepts.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id44">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True}</span></em><a class="headerlink" href="#id44" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorTool.env_vars">
+<span class="sig-name descname"><span class="pre">env_vars</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">EnvVar</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorTool.env_vars" title="Link to this definition"></a></dt>
+<dd><p>List of environment variables used by the tool.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorTool.description_updated">
+<span class="sig-name descname"><span class="pre">description_updated</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorTool.description_updated" title="Link to this definition"></a></dt>
+<dd><p>Flag to check if the description has been updated.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorTool.cache_function">
+<span class="sig-name descname"><span class="pre">cache_function</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorTool.cache_function" title="Link to this definition"></a></dt>
+<dd><p>Function that will be used to determine if the tool should be cached, should return a boolean. If None, the tool will be cached.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorTool.result_as_answer">
+<span class="sig-name descname"><span class="pre">result_as_answer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorTool.result_as_answer" title="Link to this definition"></a></dt>
+<dd><p>Flag to check if the tool should be the final agent answer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorTool.max_usage_count">
+<span class="sig-name descname"><span class="pre">max_usage_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorTool.max_usage_count" title="Link to this definition"></a></dt>
+<dd><p>Maximum number of times this tool can be used. None means unlimited usage.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MathCalculatorTool.current_usage_count">
+<span class="sig-name descname"><span class="pre">current_usage_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MathCalculatorTool.current_usage_count" title="Link to this definition"></a></dt>
+<dd><p>Current number of times this tool has been used.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id45">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.tools.custom_tool.</span></span><span class="sig-name descname"><span class="pre">TextToNumberTool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Text</span> <span class="pre">to</span> <span class="pre">Number</span> <span class="pre">Converter'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Converts</span> <span class="pre">textual</span> <span class="pre">numbers</span> <span class="pre">(written</span> <span class="pre">as</span> <span class="pre">words)</span> <span class="pre">to</span> <span class="pre">numerical</span> <span class="pre">digits.</span> <span class="pre">Supports</span> <span class="pre">English</span> <span class="pre">and</span> <span class="pre">Italian</span> <span class="pre">number</span> <span class="pre">words.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_vars:</span> <span class="pre">~typing.List[~crewai.tools.base_tool.EnvVar]</span> <span class="pre">=</span> <span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_schema:</span> <span class="pre">~typing.Type[~pydantic.main.BaseModel]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'esercizio1.tools.custom_tool.TextToNumberToolInput'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description_updated:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_function:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">BaseTool.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_as_answer:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_usage_count:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_usage_count:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/tools/custom_tool.html#TextToNumberTool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id45" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseTool</span></code></p>
+<p>Text-to-number conversion tool for multilingual support.</p>
+<p>This tool converts textual number representations (written as words) to
+numerical digits. It supports both English and Italian number words and
+can handle complex expressions containing mixed text and mathematical operators.</p>
+<dl class="simple">
+<dt>Supported Languages:</dt><dd><ul class="simple">
+<li><p>English: “one”, “two”, “three”, “twenty”, “hundred”, etc.</p></li>
+<li><p>Italian: “uno”, “due”, “tre”, “venti”, “cento”, etc.</p></li>
+</ul>
+</dd>
+<dt>Features:</dt><dd><ul class="simple">
+<li><p>Comprehensive number word dictionary</p></li>
+<li><p>Multi-language support</p></li>
+<li><p>Preserves non-number words in text</p></li>
+<li><p>Error handling for conversion failures</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id46">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id46" title="Link to this definition"></a></dt>
+<dd><p>The unique name of the tool that clearly communicates its purpose.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id47">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id47" title="Link to this definition"></a></dt>
+<dd><p>Used to tell the model how/when/why to use the tool.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id48">
+<span class="sig-name descname"><span class="pre">args_schema</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseModel</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id48" title="Link to this definition"></a></dt>
+<dd><p>The schema for the arguments that the tool accepts.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id49">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True}</span></em><a class="headerlink" href="#id49" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberTool.env_vars">
+<span class="sig-name descname"><span class="pre">env_vars</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">EnvVar</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberTool.env_vars" title="Link to this definition"></a></dt>
+<dd><p>List of environment variables used by the tool.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberTool.description_updated">
+<span class="sig-name descname"><span class="pre">description_updated</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberTool.description_updated" title="Link to this definition"></a></dt>
+<dd><p>Flag to check if the description has been updated.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberTool.cache_function">
+<span class="sig-name descname"><span class="pre">cache_function</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberTool.cache_function" title="Link to this definition"></a></dt>
+<dd><p>Function that will be used to determine if the tool should be cached, should return a boolean. If None, the tool will be cached.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberTool.result_as_answer">
+<span class="sig-name descname"><span class="pre">result_as_answer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberTool.result_as_answer" title="Link to this definition"></a></dt>
+<dd><p>Flag to check if the tool should be the final agent answer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberTool.max_usage_count">
+<span class="sig-name descname"><span class="pre">max_usage_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberTool.max_usage_count" title="Link to this definition"></a></dt>
+<dd><p>Maximum number of times this tool can be used. None means unlimited usage.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.TextToNumberTool.current_usage_count">
+<span class="sig-name descname"><span class="pre">current_usage_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.TextToNumberTool.current_usage_count" title="Link to this definition"></a></dt>
+<dd><p>Current number of times this tool has been used.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id50">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.tools.custom_tool.</span></span><span class="sig-name descname"><span class="pre">MyCustomTool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Name</span> <span class="pre">of</span> <span class="pre">my</span> <span class="pre">tool'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Clear</span> <span class="pre">description</span> <span class="pre">for</span> <span class="pre">what</span> <span class="pre">this</span> <span class="pre">tool</span> <span class="pre">is</span> <span class="pre">useful</span> <span class="pre">for</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">your</span> <span class="pre">agent</span> <span class="pre">will</span> <span class="pre">need</span> <span class="pre">this</span> <span class="pre">information</span> <span class="pre">to</span> <span class="pre">use</span> <span class="pre">it.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_vars:</span> <span class="pre">~typing.List[~crewai.tools.base_tool.EnvVar]</span> <span class="pre">=</span> <span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_schema:</span> <span class="pre">~typing.Type[~pydantic.main.BaseModel]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'esercizio1.tools.custom_tool.MyCustomToolInput'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description_updated:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_function:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">BaseTool.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_as_answer:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_usage_count:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_usage_count:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/tools/custom_tool.html#MyCustomTool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id50" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseTool</span></code></p>
+<p>Template/example custom tool for demonstration purposes.</p>
+<p>This is a placeholder tool that serves as a template for creating
+new custom tools. It demonstrates the basic structure and interface
+required for CrewAI tools.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tool is included for reference and should be replaced or
+extended with actual functionality as needed.</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id51">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id51" title="Link to this definition"></a></dt>
+<dd><p>The unique name of the tool that clearly communicates its purpose.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id52">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id52" title="Link to this definition"></a></dt>
+<dd><p>Used to tell the model how/when/why to use the tool.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id53">
+<span class="sig-name descname"><span class="pre">args_schema</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseModel</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id53" title="Link to this definition"></a></dt>
+<dd><p>The schema for the arguments that the tool accepts.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id54">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True}</span></em><a class="headerlink" href="#id54" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomTool.env_vars">
+<span class="sig-name descname"><span class="pre">env_vars</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">EnvVar</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomTool.env_vars" title="Link to this definition"></a></dt>
+<dd><p>List of environment variables used by the tool.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomTool.description_updated">
+<span class="sig-name descname"><span class="pre">description_updated</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomTool.description_updated" title="Link to this definition"></a></dt>
+<dd><p>Flag to check if the description has been updated.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomTool.cache_function">
+<span class="sig-name descname"><span class="pre">cache_function</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomTool.cache_function" title="Link to this definition"></a></dt>
+<dd><p>Function that will be used to determine if the tool should be cached, should return a boolean. If None, the tool will be cached.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomTool.result_as_answer">
+<span class="sig-name descname"><span class="pre">result_as_answer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomTool.result_as_answer" title="Link to this definition"></a></dt>
+<dd><p>Flag to check if the tool should be the final agent answer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomTool.max_usage_count">
+<span class="sig-name descname"><span class="pre">max_usage_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomTool.max_usage_count" title="Link to this definition"></a></dt>
+<dd><p>Maximum number of times this tool can be used. None means unlimited usage.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="esercizio1.tools.custom_tool.MyCustomTool.current_usage_count">
+<span class="sig-name descname"><span class="pre">current_usage_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#esercizio1.tools.custom_tool.MyCustomTool.current_usage_count" title="Link to this definition"></a></dt>
+<dd><p>Current number of times this tool has been used.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p><strong>Input Schema Classes</strong></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="id55">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.tools.custom_tool.</span></span><span class="sig-name descname"><span class="pre">MathCalculatorToolInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">expression</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/tools/custom_tool.html#MathCalculatorToolInput"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id55" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Input schema for MathCalculatorTool.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id56">
+<span class="sig-name descname"><span class="pre">expression</span></span><a class="headerlink" href="#id56" title="Link to this definition"></a></dt>
+<dd><p>Mathematical expression to calculate (e.g., ‘2 + 3 * 4’).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id57">
+<span class="sig-name descname"><span class="pre">expression</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id57" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id58">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#id58" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id59">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.tools.custom_tool.</span></span><span class="sig-name descname"><span class="pre">TextToNumberToolInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/tools/custom_tool.html#TextToNumberToolInput"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id59" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Input schema for TextToNumberTool.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id60">
+<span class="sig-name descname"><span class="pre">text</span></span><a class="headerlink" href="#id60" title="Link to this definition"></a></dt>
+<dd><p>Text containing numbers written as words to be converted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id61">
+<span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id61" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id62">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#id62" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="id63">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">esercizio1.tools.custom_tool.</span></span><span class="sig-name descname"><span class="pre">MyCustomToolInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">argument</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/esercizio1/tools/custom_tool.html#MyCustomToolInput"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id63" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Input schema for MyCustomTool (template/example tool).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id64">
+<span class="sig-name descname"><span class="pre">argument</span></span><a class="headerlink" href="#id64" title="Link to this definition"></a></dt>
+<dd><p>Generic argument for demonstration purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id65">
+<span class="sig-name descname"><span class="pre">argument</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id65" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id66">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#id66" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="type-definitions">
+<h2>📋 <strong>Type Definitions</strong><a class="headerlink" href="#type-definitions" title="Link to this heading"></a></h2>
+<p><strong>Common Types</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="c1"># Routing information dictionary</span>
+<span class="n">RoutingInfo</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+
+<span class="c1"># User input string</span>
+<span class="n">UserInput</span> <span class="o">=</span> <span class="nb">str</span>
+
+<span class="c1"># Crew type identifier</span>
+<span class="n">CrewType</span> <span class="o">=</span> <span class="nb">str</span>
+
+<span class="c1"># Classification categories</span>
+<span class="n">MainCategory</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;RAG&quot;</span><span class="p">,</span> <span class="s2">&quot;MATH&quot;</span><span class="p">,</span> <span class="s2">&quot;POEM&quot;</span><span class="p">]</span>
+<span class="n">MathSubCategory</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;NUMERIC&quot;</span><span class="p">,</span> <span class="s2">&quot;TEXTUAL&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Flow State Schema</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MultiProcessState</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">routing_info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">result</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">sentence_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p><strong>Routing Response Schema</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RoutingResponse</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;user_input&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="s2">&quot;main_category&quot;</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="s2">&quot;crew_type&quot;</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="s2">&quot;sub_category&quot;</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-schemas">
+<h2>🔧 <strong>Configuration Schemas</strong><a class="headerlink" href="#configuration-schemas" title="Link to this heading"></a></h2>
+<p><strong>Agent Configuration</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">agent_name</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span><span class="w">              </span><span class="c1"># Agent role description</span>
+<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span><span class="w">              </span><span class="c1"># Agent goal with parameters</span>
+<span class="w">  </span><span class="nt">backstory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span><span class="w">         </span><span class="c1"># Agent background story</span>
+<span class="w">  </span><span class="nt">verbose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bool</span><span class="w">          </span><span class="c1"># Optional: verbose mode</span>
+<span class="w">  </span><span class="nt">tools</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">List[str]</span><span class="w">       </span><span class="c1"># Optional: tool names</span>
+</pre></div>
+</div>
+<p><strong>Task Configuration</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">task_name</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span><span class="w">       </span><span class="c1"># Task description with parameters</span>
+<span class="w">  </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span><span class="w">   </span><span class="c1"># Expected output description</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span><span class="w">            </span><span class="c1"># Agent name to execute task</span>
+<span class="w">  </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">List[str]</span><span class="w">    </span><span class="c1"># Optional: context task names</span>
+</pre></div>
+</div>
+</section>
+<section id="usage-examples">
+<h2>🚀 <strong>Usage Examples</strong><a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>
+<p><strong>Basic Flow Execution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiProcessFlow</span>
+
+<span class="c1"># Create and execute flow</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">MultiProcessFlow</span><span class="p">()</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Direct Routing</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.routers.main_router</span><span class="w"> </span><span class="kn">import</span> <span class="n">route_user_input</span>
+
+<span class="c1"># Route a user input</span>
+<span class="n">routing_info</span> <span class="o">=</span> <span class="n">route_user_input</span><span class="p">(</span><span class="s2">&quot;What is machine learning?&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">routing_info</span><span class="p">)</span>
+<span class="c1"># Output: {&#39;user_input&#39;: &#39;...&#39;, &#39;main_category&#39;: &#39;RAG&#39;, &#39;crew_type&#39;: &#39;rag_crew&#39;, &#39;sub_category&#39;: None}</span>
+</pre></div>
+</div>
+<p><strong>Tool Usage</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.tools.custom_tool</span><span class="w"> </span><span class="kn">import</span> <span class="n">MathCalculatorTool</span><span class="p">,</span> <span class="n">TextToNumberTool</span>
+
+<span class="c1"># Mathematical calculation</span>
+<span class="n">calc_tool</span> <span class="o">=</span> <span class="n">MathCalculatorTool</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">calc_tool</span><span class="o">.</span><span class="n">_run</span><span class="p">(</span><span class="s2">&quot;2 + 3 * 4&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># &quot;Result: 14&quot;</span>
+
+<span class="c1"># Text to number conversion</span>
+<span class="n">text_tool</span> <span class="o">=</span> <span class="n">TextToNumberTool</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">text_tool</span><span class="o">.</span><span class="n">_run</span><span class="p">(</span><span class="s2">&quot;two plus three&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># &quot;Converted text: 2 plus 3&quot;</span>
+</pre></div>
+</div>
+<p><strong>Crew Direct Usage</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">esercizio1.crews.rag_crew.rag_crew</span><span class="w"> </span><span class="kn">import</span> <span class="n">RagCrew</span>
+
+<span class="c1"># Execute RAG crew directly</span>
+<span class="n">rag_crew</span> <span class="o">=</span> <span class="n">RagCrew</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">rag_crew</span><span class="o">.</span><span class="n">crew</span><span class="p">()</span><span class="o">.</span><span class="n">kickoff</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="s2">&quot;Explain quantum computing&quot;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="error-handling">
+<h2>⚠️ <strong>Error Handling</strong><a class="headerlink" href="#error-handling" title="Link to this heading"></a></h2>
+<p><strong>Common Exceptions</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mathematical calculation errors</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">calc_tool</span><span class="o">.</span><span class="n">_run</span><span class="p">(</span><span class="s2">&quot;10 / 0&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Division by zero error&quot;</span><span class="p">)</span>
+
+<span class="c1"># Invalid expression errors</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">calc_tool</span><span class="o">.</span><span class="n">_run</span><span class="p">(</span><span class="s2">&quot;invalid expression&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid mathematical expression&quot;</span><span class="p">)</span>
+
+<span class="c1"># AI classification fallback</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">routing_info</span> <span class="o">=</span> <span class="n">route_user_input</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classification failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># System falls back to pattern-based routing</span>
+</pre></div>
+</div>
+</section>
+<section id="security-considerations">
+<h2>🔒 <strong>Security Considerations</strong><a class="headerlink" href="#security-considerations" title="Link to this heading"></a></h2>
+<p><strong>Safe Expression Evaluation</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">MathCalculatorTool</span></code> implements several security measures:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">_is_safe_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validates mathematical expressions for safety.&quot;&quot;&quot;</span>
+    <span class="n">safe_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^[0-9+\-*/^().]+$&#39;</span>
+    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">safe_pattern</span><span class="p">,</span> <span class="n">expression</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Input Sanitization</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">_clean_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes whitespace and sanitizes input.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">expression</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="performance-notes">
+<h2>📈 <strong>Performance Notes</strong><a class="headerlink" href="#performance-notes" title="Link to this heading"></a></h2>
+<p><strong>Routing Performance</strong></p>
+<ul class="simple">
+<li><p>Pattern-based classification: ~1-5ms</p></li>
+<li><p>AI-based classification: ~100-1000ms (depends on model)</p></li>
+<li><p>Fallback mechanisms ensure reliability</p></li>
+</ul>
+<p><strong>Memory Usage</strong></p>
+<ul class="simple">
+<li><p>Flow state: ~1-10KB per execution</p></li>
+<li><p>Crew instances: ~10-100KB per crew</p></li>
+<li><p>Tool instances: ~1-5KB per tool</p></li>
+</ul>
+<p><strong>Optimization Tips</strong></p>
+<ul class="simple">
+<li><p>Use pattern-based routing for high-frequency requests</p></li>
+<li><p>Configure crew verbosity appropriately</p></li>
+<li><p>Implement result caching for repeated queries</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="architecture.html" class="btn btn-neutral float-left" title="System Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Bardini-Rremilli Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

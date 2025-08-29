@@ -1,0 +1,5 @@
+User Input: write a poem about artificial intelligence
+Crew Type: poem_crew
+Routing Info: {'user_input': 'write a poem about artificial intelligence', 'main_category': 'POEM', 'crew_type': 'poem_crew', 'sub_category': None}
+Result:
+CrewAI pirouettes across my screen, sprinkling sparkling code like confetti in a cosmic celebration. It high-fives my cursor with cheeky quips and zaps bugs into smiley confetti, turning every digital chore into a dance party.

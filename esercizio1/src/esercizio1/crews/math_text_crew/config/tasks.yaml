@@ -1,0 +1,32 @@
+parse_text_math_expression:
+  description: >
+    Parse the mathematical expression with textual numbers: {math_expression}
+    
+    Identify and convert all textual numbers (like "two", "three", "due", "tre") into
+    their numerical equivalents. Identify mathematical operations and structure.
+    Handle both English and Italian textual numbers.
+  expected_output: >
+    A breakdown showing the original textual expression, identified textual numbers,
+    their numerical conversions, and the mathematical structure
+  agent: text_number_parser
+
+calculate_text_math_result:
+  description: >
+    Calculate the result of the mathematical expression with textual numbers: {math_expression}
+    
+    Use the parsed textual numbers and convert them to perform the mathematical calculation.
+    Follow proper order of operations and show the conversion process.
+  expected_output: >
+    The calculation process showing textual number conversions and the final numerical result
+  agent: text_math_calculator
+
+format_text_math_result:
+  description: >
+    Format and present the final result of the textual mathematical calculation
+    
+    Show the original textual expression, the numerical conversion, calculation steps,
+    and the final answer in a clear, comprehensive format.
+  expected_output: >
+    A well-formatted presentation showing the original textual expression, numerical conversion,
+    and the final result
+  agent: text_result_formatter
