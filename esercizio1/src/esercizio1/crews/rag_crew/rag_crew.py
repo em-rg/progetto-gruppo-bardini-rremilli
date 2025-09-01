@@ -6,7 +6,7 @@ from typing import List
 
 @CrewBase
 class RagCrew:
-    """RAG (Retrieval Augmented Generation) Crew for information retrieval and knowledge-based queries."""
+    """RAG Crew for information retrieval and knowledge-based queries."""
 
     agents: List[BaseAgent]
     tasks: List[Task]
