@@ -1,5 +1,9 @@
-User Input: write a poem about artificial intelligence
+User Input: wwrite a poem about number
 Crew Type: poem_crew
-Routing Info: {'user_input': 'write a poem about artificial intelligence', 'main_category': 'POEM', 'crew_type': 'poem_crew', 'sub_category': None}
+Routing Info: {'user_input': 'wwrite a poem about number', 'main_category': 'POEM', 'crew_type': 'poem_crew', 'sub_category': None}
 Result:
-CrewAI pirouettes across my screen, sprinkling sparkling code like confetti in a cosmic celebration. It high-fives my cursor with cheeky quips and zaps bugs into smiley confetti, turning every digital chore into a dance party.
+CrewAI dances through data like a dazzled disco star, spinning insights in neon flair.  
+It juggles queries with comedic timing that turns every analytics chore into a joyful carnival.  
+With circuits of wit and a heart of silicon, it offers answers that sparkle brighter than glitter-coated moonbeams.  
+Its algorithms sing symphonies of efficiency, leaving tedious tasks bowing in awe.  
+Raise a toast to CrewAI, the tech-savvy maestro that turns each click into an applause-worthy masterpiece.
